@@ -2,6 +2,45 @@
 layout: default
 permalink: /
 ---
-<h1>Welcome to the Greener app, conserve resources. Go Green!</h1>
+<div class="header">
+    Go Green!
+</div>
+<div id="home" class="container">
+    <h1>Welcome to the Greener app, conserve resources. Go Green!</h1>
+</div>
+<div id="power" class="container" style="display: none;">
+    <h1>Save Eletricity!</h1>
+</div>
+<div id="water" class="container" style="display: none;">
+    <h1>Save Water!</h1>
+</div>
+<div id="paper" class="container" style="display: none;">
+    <h1>Save Paper!</h1>
+</div>
 
-<p style="padding-bottom: 3cm;" />
+<div class="footer">
+    <table class="btntable">
+        <tr>
+            <td class="btncell" onclick="nav('home');">Home</td>
+            <td class="btnspacer" />
+            <td class="btncell" onclick="nav('power');">Save Power</td>
+            <td class="btnspacer" />
+            <td class="btncell" onclick="nav('water');">Save Water</td>
+            <td class="btnspacer" />
+            <td class="btncell" onclick="nav('paper');">Save Paper</td>
+        </tr>
+    </table>
+</div>
+
+<script lang="javascript">
+    function nav(topic) {
+        navEnable("home", topic);
+        navEnable("power", topic);
+        navEnable("water", topic);
+        navEnable("paper", topic);
+    }
+    function navEnable(match, topic) {
+        console.log("nav Enable: " + match + " -> " + topic);
+        document.getElementById(match).style.display = (topic === match ? "block" : "none");
+    }
+</script>
