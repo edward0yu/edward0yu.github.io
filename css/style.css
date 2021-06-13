@@ -62,3 +62,20 @@ font-size: 3rem;
     height: 110px; 
     margin: auto;
 }
+.label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15pt;
+    padding: 10px;
+    text-align: center;
+}
+.hint {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15pt;
+    padding: 50px;
+    text-align: justify;
+}
+.pts {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 100pt;
+    color: green;
+}
