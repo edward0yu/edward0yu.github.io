@@ -70,8 +70,8 @@ font-size: 3rem;
 }
 .hint {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 15pt;
-    padding: 50px;
+    font-size: 12pt;
+    padding: 10px;
     text-align: justify;
 }
 .pts {
@@ -79,3 +79,11 @@ font-size: 3rem;
     font-size: 100pt;
     color: green;
 }
+.card {
+    margin: auto;
+    text-align: center;
+    width: 95%;
+    background-color: #ccffcc;
+    border: 2px solid black;
+}
+    
