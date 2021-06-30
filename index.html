@@ -3,81 +3,82 @@ layout: default
 permalink: /
 ---
 <div class="header">
-    Go Green!
+  Go Green!
 </div>
 <div id="home" class="container">
-    <h1>Welcome to the Greener app, conserve resources. Go Green!</h1>
-    <table class="container">
-        <tr>
-            <td class="label">Total points earned:</td>
-        </tr>
-        <tr>
-            <td id="total_pts" class="pts">0</td>
-        </tr>
-        <tr>
-            <td class="hint">Earn points by exploring the resource conservation tips, following up
-                with actions in your daily life, sharing tips with friends and family, and
-                suggesting new tips!
-                <p> Try one of the topics below to start.
-                </p>
-            </td>
-        </tr>
-    </table>
+  <h1>Welcome to the Greener app, conserve resources. Go Green!</h1>
+  <table class="container">
+    <tr>
+      <td class="label">Total points earned:</td>
+    </tr>
+    <tr>
+      <td id="total_pts" class="pts">0</td>
+    </tr>
+    <tr>
+      <td class="hint">Earn points by exploring the resource conservation tips, following up
+        with actions in your daily life, sharing tips with friends and family, and
+        suggesting new tips!
+        <p> Try one of the topics below to start.
+        </p>
+      </td>
+    </tr>
+  </table>
 </div>
 <div id="power" class="container" style="display: none;">
-    <table class="card">
-        <tr>
-            <td class="label">Should I unplug chargers when they are not in use?</td>
-        </tr>
-        <tr>
-            <td class="hint">
-                <p>Many small electronic devices such as phones and tablets have chargers.
-                    Even when not in use, the chargers still consumes some electricity. The power consumption
-                    of most chargers manufactured in recent years is negligible when not in use, and
-                    unplugging them produces no meaningful power savings. </p>
-                <p>The easiest way to tell whether you should unplug a particular charger
-                    is simply touch it with you hand after it's plugged in for a hour without
-                    actively charging. If you can feel the warmth, unplug it will have meaningful
-                    power savings. If it's cold to the touch, you can simply leave it plugged in.
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td>Upvote &nbsp;&nbsp; &nbsp; Next tip</td>
-        </tr>
-    </table>
+  <table class="card">
+    <tr>
+      <td class="label">Should I unplug chargers when they are not in use?</td>
+    </tr>
+    <tr>
+      <td class="hint">
+        <p>Many small electronic devices such as phones and tablets have chargers.
+          Even when not in use, the chargers still consumes some electricity. The power
+          consumption
+          of most chargers manufactured in recent years is negligible when not in use, and
+          unplugging them produces no meaningful power savings. </p>
+        <p>The easiest way to tell whether you should unplug a particular charger
+          is simply touch it with you hand after it's plugged in for a hour without
+          actively charging. If you can feel the warmth, unplug it will have meaningful
+          power savings. If it's cold to the touch, you can simply leave it plugged in.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>Upvote &nbsp;&nbsp; &nbsp; Next tip</td>
+    </tr>
+  </table>
 
 </div>
 <div id="water" class="container" style="display: none;">
-    <h1>Save Water!</h1>
+  <h1>Save Water!</h1>
 </div>
 <div id="paper" class="container" style="display: none;">
-    <h1>Save Paper!</h1>
+  <h1>Save Paper!</h1>
 </div>
 
 <div class="footer">
-    <table class="btntable">
-        <tr>
-            <td class="btncell" onclick="nav('home');">Home</td>
-            <td class="btnspacer" />
-            <td class="btncell" onclick="nav('power');">Save Power</td>
-            <td class="btnspacer" />
-            <td class="btncell" onclick="nav('water');">Save Water</td>
-            <td class="btnspacer" />
-            <td class="btncell" onclick="nav('paper');">Save Paper</td>
-        </tr>
-    </table>
+  <table class="btntable">
+    <tr>
+      <td class="btncell" onclick="nav('home');">Home</td>
+      <td class="btnspacer" />
+      <td class="btncell" onclick="nav('power');">Save Power</td>
+      <td class="btnspacer" />
+      <td class="btncell" onclick="nav('water');">Save Water</td>
+      <td class="btnspacer" />
+      <td class="btncell" onclick="nav('paper');">Save Paper</td>
+    </tr>
+  </table>
 </div>
 
 <script lang="javascript">
-    function nav(topic) {
-        navEnable("home", topic);
-        navEnable("power", topic);
-        navEnable("water", topic);
-        navEnable("paper", topic);
-    }
-    function navEnable(match, topic) {
-        console.log("nav Enable: " + match + " -> " + topic);
-        document.getElementById(match).style.display = (topic === match ? "block" : "none");
-    }
+  function nav(topic) {
+    navEnable("home", topic);
+    navEnable("power", topic);
+    navEnable("water", topic);
+    navEnable("paper", topic);
+  }
+  function navEnable(match, topic) {
+    console.log("nav Enable: " + match + " -> " + topic);
+    document.getElementById(match).style.display = (topic === match ? "block" : "none");
+  }
 </script>
