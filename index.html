@@ -56,19 +56,22 @@ permalink: /
   <h1>Save Paper!</h1>
 </div>
 
+
 <div class="footer">
-  <table class="btntable">
-    <tr>
-      <td class="btncell" onclick="nav('home');">Home</td>
-      <td class="btnspacer" />
-      <td class="btncell" onclick="nav('power');">Save Power</td>
-      <td class="btnspacer" />
-      <td class="btncell" onclick="nav('water');">Save Water</td>
-      <td class="btnspacer" />
-      <td class="btncell" onclick="nav('paper');">Save Paper</td>
-    </tr>
-  </table>
-</div>
+  <div class="ui-grid-c">
+    <div class="ui-block-a"><button class="ui-btn ui-btn-icon-top ui-icon-grid"
+        onclick="nav('power');">???</button></div>
+    <div class="ui-block-b">
+      <button class="ui-btn ui-btn-icon-top ui-icon-home" onclick="nav('home');">Home</button>
+    </div>
+    <div class="ui-block-c">
+      <button class="ui-btn ui-btn-icon-top ui-icon-forward" onclick="nav('water');">Share</button>
+    </div>
+    <div class="ui-block-d">
+      <button class="ui-btn ui-btn-icon-top ui-icon-star" onclick="nav('paper');">Fav</button>
+    </div>
+  </div><!-- /navbar -->
+</div><!-- /footer -->
 
 <script lang="javascript">
   function nav(topic) {

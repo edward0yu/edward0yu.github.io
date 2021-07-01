@@ -58,7 +58,8 @@ font-size: 3rem;
     position: fixed;
     bottom: 0px;
     overflow: hide;
-    width: 100%;
+    width: 96%;
+    padding: 2%;
     height: 110px; 
     margin: auto;
 }
@@ -86,4 +87,12 @@ font-size: 3rem;
     background-color: #ccffcc;
     border: 2px solid black;
 }
-    
+.ui-grid-c div {
+  background-color: white;
+}
+/*.ui-block-a button, .ui-block-b button, .ui-block-c button, .ui-block-d button {*/
+button {
+  background-color: white;
+  border: none;
+  padding: 30px;
+}    
