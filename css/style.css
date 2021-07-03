@@ -47,21 +47,33 @@ font-size: 3rem;
     overflow: hide;
     width: 100%;
     height: 20px; 
-    margin: auto;
+    margin: 0;
     text-align: center;
-    padding: 20px 0;
-    font-family: Helvetica, Arial, sans-serif;
+    padding: 10px 0 15px 0;
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
     font-size: 15pt;
-    background-color: #00cc00;
+    font-weight: bold;
+    background-color: #77dd77;
+}
+.maincanvas {
+  position: fixed;
+  margin: 0;
+  top: 45px;
+  text-align: center;
+  width: 100%;
+  height: calc(100% - 45px - 120px);
+  background-color: #f1f1f1;
+  overflow: hidden;
 }
 .footer {
     position: fixed;
     bottom: 0px;
-    overflow: hide;
     width: 96%;
-    padding: 2%;
+    padding: 10px 2% 0px 2%;
     height: 110px; 
-    margin: auto;
+    margin: 0;
+    background-color: #e0ffe0;
+    overflow: hidden;
 }
 .label {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -81,18 +93,20 @@ font-size: 3rem;
     color: green;
 }
 .card {
-    margin: auto;
+    margin: 2%;
     text-align: center;
-    width: 95%;
-    background-color: #ccffcc;
-    border: 2px solid black;
+    width: 96%;
+    padding: 0;
+    background-color: #ffffff;
+    border: none;
+    filter: drop-shadow(7px 7px 2px #cfd0d1)
 }
 .ui-grid-c div {
-  background-color: white;
+  background-color: #e0ffe0;
 }
-/*.ui-block-a button, .ui-block-b button, .ui-block-c button, .ui-block-d button {*/
 button {
   background-color: white;
-  border: none;
-  padding: 30px;
-}    
+}
+.ui-block-a div, .ui-block-b div, .ui-block-c div, .ui-block-d div {
+  margin: 10px 10px 10px 10px;
+}
