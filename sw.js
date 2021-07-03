@@ -1,4 +1,4 @@
-const cacheName = 'greener-v002';
+const cacheName = 'greener-v003';
 const filesToCache = [
   '/',
   '/index.html',

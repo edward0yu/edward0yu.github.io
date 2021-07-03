@@ -24,38 +24,10 @@ permalink: /
     </tr>
   </table>
 </div>
-<div id="power" class="container" style="display: none;">
-  <table class="card">
-    <tr>
-      <td class="label">Should I unplug chargers when they are not in use?</td>
-    </tr>
-    <tr>
-      <td class="hint">
-        <p>Many small electronic devices such as phones and tablets have chargers.
-          Even when not in use, the chargers still consumes some electricity. The power
-          consumption
-          of most chargers manufactured in recent years is negligible when not in use, and
-          unplugging them produces no meaningful power savings. </p>
-        <p>The easiest way to tell whether you should unplug a particular charger
-          is simply touch it with you hand after it's plugged in for a hour without
-          actively charging. If you can feel the warmth, unplug it will have meaningful
-          power savings. If it's cold to the touch, you can simply leave it plugged in.
-        </p>
-      </td>
-    </tr>
-    <tr>
-      <td>Upvote &nbsp;&nbsp; &nbsp; Next tip</td>
-    </tr>
-  </table>
+
+<div id="cardlist" class="container">
 
 </div>
-<div id="water" class="container" style="display: none;">
-  <h1>Save Water!</h1>
-</div>
-<div id="paper" class="container" style="display: none;">
-  <h1>Save Paper!</h1>
-</div>
-
 
 <div class="footer">
   <div class="ui-grid-c">
@@ -73,6 +45,22 @@ permalink: /
   </div><!-- /navbar -->
 </div><!-- /footer -->
 
+<div id="cardtemplate" style="display: none;">
+  <div class="container" id="__ID__">
+    <table class="card">
+      <tr>
+        <td class="label">__TITLE__</td>
+      </tr>
+      <tr>
+        <td class="hint">__TEXT__</td>
+      </tr>
+      <tr>
+        <td>Upvote &nbsp;&nbsp; &nbsp; Next tip</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
 <script lang="javascript">
   function nav(topic) {
     navEnable("home", topic);
@@ -84,4 +72,28 @@ permalink: /
     console.log("nav Enable: " + match + " -> " + topic);
     document.getElementById(match).style.display = (topic === match ? "block" : "none");
   }
+
+  // Initialize Cloud Firestore and get the data list.
+  if (typeof firebase === 'undefined') throw new Error('Firebase SDK not detected.');
+  firebase.initializeApp({ "projectId": "greener-318516" });
+  let db = firebase.firestore();
+  let dataP = db.collection("greener").get();
+
+  $(document).ready(function () {
+    // Render the cards from the content retrieved from the Cloud Firestore
+    dataP.then(
+      (data) => {
+        data.forEach((card) => {
+          let s = $("#cardtemplate").html()
+            .replace("__TITLE__", card.data()["Title"])
+            .replace("__TEXT__", card.data()["Text"]);
+          console.log(s);
+          $("#cardlist").append(s);
+        });
+      },
+      (error) => {
+        console.log("ERROR" + error);
+      });
+  });
+
 </script>
