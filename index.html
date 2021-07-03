@@ -50,13 +50,14 @@ permalink: /
   <div class="container" id="__ID__">
     <table class="card">
       <tr>
+        <td class="cardimg"><img src="/images/__IMG__.png" height="50px" /></td>
         <td class="label">__TITLE__</td>
       </tr>
       <tr>
-        <td class="hint">__TEXT__</td>
+        <td class="hint" colspan="2">__TEXT__</td>
       </tr>
       <tr>
-        <td>Upvote &nbsp;&nbsp; &nbsp; Next tip</td>
+        <td colspan="2">Upvote &nbsp;&nbsp; &nbsp; Next tip</td>
       </tr>
     </table>
   </div>
@@ -85,10 +86,16 @@ permalink: /
     dataP.then(
       (data) => {
         data.forEach((card) => {
+          let imgName = "placeholder";
+          switch (card.data()["Type"]) {
+            case "power": imgName = "power"; break;
+            case "water": imgName = "waterdrop"; break;
+          }
           let s = $("#cardtemplate").html()
             .replace("__TITLE__", card.data()["Title"])
-            .replace("__TEXT__", card.data()["Text"]);
-          console.log(s);
+            .replace("__TEXT__", card.data()["Text"])
+            .replace("__IMG__", imgName);
+          console.log(card.data()["Type"] + "\n" + s);
           $("#cardlist").append(s);
         });
       },
