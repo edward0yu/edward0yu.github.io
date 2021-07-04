@@ -68,9 +68,8 @@ html,
 .footer {
   position: fixed;
   bottom: 0px;
-  width: 96%;
-  padding: 10px 2% 0px 2%;
-  height: 110px; 
+  width: 100%;
+  height: 90px; 
   margin: 0;
   background-color: #e0ffe0;
   overflow: hidden;
@@ -99,20 +98,19 @@ html,
   color: green;
 }
 .card {
-  margin: 2%;
+  margin: 15px;
   text-align: center;
-  width: 96%;
+  width: calc(100% - 30px);
   padding: 0;
   background-color: #ffffff;
   border: none;
   filter: drop-shadow(7px 7px 2px #cfd0d1)
 }
-.ui-grid-c div {
+.ui-grid-c {
   background-color: #e0ffe0;
+  width: 70%;
+  margin: auto;
 }
 button {
   background-color: white;
-}
-.ui-block-a div, .ui-block-b div, .ui-block-c div, .ui-block-d div {
-  margin: 10px 10px 10px 10px;
 }
