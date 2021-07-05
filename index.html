@@ -43,6 +43,25 @@ permalink: /
         </tr>
       </table>
     </div>
+
+    <div class="cardcontainer" id="card_9999">
+      <table class="card">
+        <tr>
+          <td class="cardimg"><img src="/images/star.png" height="50px" /></td>
+          <td class="label">You are done!</td>
+        </tr>
+        <tr>
+          <td class="hint" colspan="5">Congratulations! You've learned many resource conservation
+            tips. Now it's time to put them in action!
+            <p>Follow these tips in your daily routines. And don't forget to share them with your
+              friends and family!</p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -58,7 +77,7 @@ permalink: /
       <tr>
         <td class="label" colspan="2"></td>
         <td class="cardnav">
-          <a href="#" class="ui-btn ui-btn-icon-left ui-icon-home noborder"></a>
+          <a class="ui-btn ui-btn-icon-left ui-icon-home noborder" onclick="reload();"></a>
         </td>
         <td class="cardnav">
           <a href="#" class="ui-btn ui-btn-icon-left ui-icon-forward noborder"></a>
@@ -84,15 +103,9 @@ permalink: /
   let dragStartX = 0;      // Coordinate when the dragging starts.
   let dragStartY = 0;      // Coordinate when the dragging starts.
 
-  function nav(topic) {
-    navEnable("home", topic);
-    navEnable("power", topic);
-    navEnable("water", topic);
-    navEnable("paper", topic);
-  }
-  function navEnable(match, topic) {
-    console.log("nav Enable: " + match + " -> " + topic);
-    document.getElementById(match).style.display = (topic === match ? "block" : "none");
+  function reload() {
+    if (activeCard !== null) activeCard.classList.remove("cardshow");
+    document.getElementById("card_0").classList.add("cardshow");
   }
   function showNextCard(elem) {
     console.log(elem.id);
