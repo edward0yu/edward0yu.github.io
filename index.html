@@ -8,8 +8,10 @@ permalink: /
 <div id="maincanvas" class="maincanvas">
   <div id="cardlist" class="container">
     <div class="cardcontainer cardshow" id="card_0" onmouseover="onMouseOverCard(this);"
-      onmouseout="onMouseOutCard(this);" onmousedown="onDragStartCard(event, this);"
-      onmouseup="onDragEndCard(this);" onmousemove="onDragCard(event, this);">
+      onmousedown="onDragStartCard(event, this);" ontouchstart="onDragStartCard(event, this);"
+      onmouseup="onDragEndCard(this);" ontouchcancel="onDragEndCard(event, this);"
+      onmousemove="onDragCard(event, this);" ontouchmove="onDragCard(event, this);"
+      onmouseout="onMouseOutCard(this);">
       <table class="card">
         <tr>
           <td class="label" colspan="2">Welcome to the Greener app, conserve resources. Go Green!
