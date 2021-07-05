@@ -6,28 +6,29 @@ permalink: /
   Go Green!
 </div>
 <div class="maincanvas">
-  <div id="home" class="card">
-    <h1>Welcome to the Greener app, conserve resources. Go Green!</h1>
-    <table class="container">
-      <tr>
-        <td class="label">Total points earned:</td>
-      </tr>
-      <tr>
-        <td id="total_pts" class="pts">0</td>
-      </tr>
-      <tr>
-        <td class="hint">Earn points by exploring the resource conservation tips, following up
-          with actions in your daily life, sharing tips with friends and family, and
-          suggesting new tips!
-          <p> Try one of the topics below to start.
-          </p>
-        </td>
-      </tr>
-    </table>
+  <div class="container" id="__ID__" onmouseover="onMouseOverCard(this);"
+    onmouseout="onMouseOutCard(this);" onclick="onClickCard(this);">
+    <div id="home" class="card">
+      <h1>Welcome to the Greener app, conserve resources. Go Green!</h1>
+      <table class="container">
+        <tr>
+          <td class="label">Total points earned:</td>
+        </tr>
+        <tr>
+          <td id="total_pts" class="pts">0</td>
+        </tr>
+        <tr>
+          <td class="hint">Earn points by exploring the resource conservation tips, following up
+            with actions in your daily life, sharing tips with friends and family, and
+            suggesting new tips!
+            <p> Try one of the topics below to start.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-
   <div id="cardlist" class="container"></div>
-
 </div>
 
 <div class="footer">
@@ -47,7 +48,8 @@ permalink: /
 </div><!-- /footer -->
 
 <div id="cardtemplate" style="display: none;">
-  <div class="container" id="__ID__">
+  <div class="container" id="__ID__" onmouseover="onMouseOverCard(this);"
+    onmouseout="onMouseOutCard(this);">
     <table class="card">
       <tr>
         <td class="cardimg"><img src="/images/__IMG__.png" height="50px" /></td>
@@ -73,6 +75,18 @@ permalink: /
   function navEnable(match, topic) {
     console.log("nav Enable: " + match + " -> " + topic);
     document.getElementById(match).style.display = (topic === match ? "block" : "none");
+  }
+
+  function onMouseOverCard(e) {
+    // console.log(e.id + ", " + e.classList + " mouse over ");
+    e.classList.add("cardhighlight");
+  }
+  function onMouseOutCard(e) {
+    // console.log(e.id + ", " + e.classList + " mouse over ");
+    e.classList.remove("cardhighlight");
+  }
+  function onClickCard(e) {
+    e.style = "display:none;";
   }
 
   // Initialize Cloud Firestore and get the data list.

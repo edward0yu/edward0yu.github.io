@@ -104,7 +104,12 @@ html,
   padding: 0;
   background-color: #ffffff;
   border: none;
-  filter: drop-shadow(7px 7px 2px #cfd0d1)
+  filter: drop-shadow(7px 7px 2px #cfd0d1);
+}
+.cardhighlight {
+  filter: drop-shadow(8px 8px 3px #cfd0d1);
+  margin-left: -3px;
+  margin-top: -5px;
 }
 .ui-grid-c {
   background-color: #e0ffe0;
