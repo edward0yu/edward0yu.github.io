@@ -5,67 +5,83 @@ permalink: /
 <div class="header">
   Go Green!
 </div>
-<div class="maincanvas">
-  <div class="container" id="__ID__" onmouseover="onMouseOverCard(this);"
-    onmouseout="onMouseOutCard(this);" onclick="onClickCard(this);">
-    <div id="home" class="card">
-      <h1>Welcome to the Greener app, conserve resources. Go Green!</h1>
-      <table class="container">
+<div id="maincanvas" class="maincanvas">
+  <div id="cardlist" class="container">
+    <div class="cardcontainer cardshow" id="card_0" onmouseover="onMouseOverCard(this);"
+      onmouseout="onMouseOutCard(this);" onmousedown="onDragStartCard(event, this);"
+      onmouseup="onDragEndCard(this);" onmousemove="onDragCard(event, this);">
+      <table class="card">
         <tr>
-          <td class="label">Total points earned:</td>
+          <td class="label" colspan="2">Welcome to the Greener app, conserve resources. Go Green!
+          </td>
         </tr>
         <tr>
-          <td id="total_pts" class="pts">0</td>
+          <td></td>
+          <td class="cardnav">
+            <a class="ui-btn ui-btn-icon-left ui-icon-check noborder"
+              onclick="showNextCard(document.getElementById('card_0'));"></a>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="label" colspan="2">Total points earned:</td>
         </tr>
         <tr>
-          <td class="hint">Earn points by exploring the resource conservation tips, following up
+          <td id="total_pts" class="pts" colspan="2">0</td>
+        </tr>
+        <tr>
+          <td class="hint" colspan="2">Earn points by exploring the resource conservation tips,
+            following up
             with actions in your daily life, sharing tips with friends and family, and
             suggesting new tips!
-            <p> Try one of the topics below to start.
+            <p>&nbsp;</p>
+            <p> <b>Swipe this card or click on the checkmark to start.</b>
             </p>
           </td>
         </tr>
       </table>
     </div>
   </div>
-  <div id="cardlist" class="container"></div>
 </div>
 
-<div class="footer">
-  <div class="ui-grid-c">
-    <div class="ui-block-a"><button class="ui-btn ui-btn-icon-top ui-icon-grid"
-        onclick="nav('power');">???</button></div>
-    <div class="ui-block-b">
-      <button class="ui-btn ui-btn-icon-top ui-icon-home" onclick="nav('home');">Home</button>
-    </div>
-    <div class="ui-block-c">
-      <button class="ui-btn ui-btn-icon-top ui-icon-forward" onclick="nav('water');">Share</button>
-    </div>
-    <div class="ui-block-d">
-      <button class="ui-btn ui-btn-icon-top ui-icon-star" onclick="nav('paper');">Fav</button>
-    </div>
-  </div><!-- /navbar -->
-</div><!-- /footer -->
-
 <div id="cardtemplate" style="display: none;">
-  <div class="container" id="__ID__" onmouseover="onMouseOverCard(this);"
-    onmouseout="onMouseOutCard(this);">
+  <div class="cardcontainer" id="__ID__" onmouseover="onMouseOverCard(this);"
+    onmouseout="onMouseOutCard(this);" onmousedown="onDragStartCard(event, this);"
+    onmouseup="onDragEndCard(this);" onmousemove="onDragCard(event, this);">
     <table class="card">
       <tr>
-        <td class="cardimg"><img src="/images/__IMG__.png" height="50px" /></td>
-        <td class="label">__TITLE__</td>
+        <td class="cardimg"><img src="/images/placeholder.png" height="50px" /></td>
+        <td class="label" colspan="4">__TITLE__</td>
       </tr>
       <tr>
-        <td class="hint" colspan="2">__TEXT__</td>
+        <td class="label" colspan="2"></td>
+        <td class="cardnav">
+          <a href="#" class="ui-btn ui-btn-icon-left ui-icon-home noborder"></a>
+        </td>
+        <td class="cardnav">
+          <a href="#" class="ui-btn ui-btn-icon-left ui-icon-forward noborder"></a>
+        </td>
+        <td class="cardnav">
+          <a class="ui-btn ui-btn-icon-left ui-icon-check noborder"
+            onclick="showNextCard(document.getElementById('__ID__'));"></a>
+        </td>
       </tr>
       <tr>
-        <td colspan="2">Upvote &nbsp;&nbsp; &nbsp; Next tip</td>
+        <td class="hint" colspan="5">__TEXT__</td>
       </tr>
     </table>
   </div>
 </div>
 
 <script lang="javascript">
+  let activeCard = null; // The card currently showing
+  const endId = 9999;    // A card id larger than normal cards, representing the end.
+  let lastId = 0;        // The if of the last normal card.
+  let dragElem = null;     // The element current being dragged, or null if no dragging is occuring.
+  let dragStartMillis = 0; // Timestamp when the dragging starts.
+  let dragStartX = 0;      // Coordinate when the dragging starts.
+  let dragStartY = 0;      // Coordinate when the dragging starts.
+
   function nav(topic) {
     navEnable("home", topic);
     navEnable("power", topic);
@@ -75,6 +91,19 @@ permalink: /
   function navEnable(match, topic) {
     console.log("nav Enable: " + match + " -> " + topic);
     document.getElementById(match).style.display = (topic === match ? "block" : "none");
+  }
+  function showNextCard(elem) {
+    console.log(elem.id);
+    if (elem === null || !elem.id.startsWith("card_")) return;
+    let id = Number(elem.id.substr(5));
+    if (id < lastId) {
+      ++id;
+    } else {
+      id = endId;
+    }
+    elem.classList.remove("cardshow");
+    activeCard = document.getElementById("card_" + id);
+    activeCard.classList.add("cardshow");
   }
 
   function onMouseOverCard(e) {
@@ -86,7 +115,39 @@ permalink: /
     e.classList.remove("cardhighlight");
   }
   function onClickCard(e) {
-    e.style = "display:none;";
+    showNextCard(e);
+  }
+  function onDragStartCard(event, elem) {
+    if (dragElem !== null) onDragEndCard();
+    dragElem = elem;
+    dragStartMillis = Date.now();
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    console.log("< drag start" + dragElem.id + ", (" + dragStartX + ", " + dragStartY + ")");
+  }
+  function onDragCard(event, elem) {
+    if (dragElem === null) return;
+    let dx = event.clientX - dragStartX;
+    let dy = event.clientY - dragStartY;
+    let dt = Date.now() - dragStartMillis;
+    console.log("  dragging " + elem.id + ", (" + dx + ", " + dy + ") / ("
+      + elem.getBoundingClientRect().width + ", " + elem.getBoundingClientRect().height + ")");
+    // If it's a horizontal move, check if it's a swipe-to-dismiss gesture (defined as dragging
+    // by more than 30% of width within 0.8s).
+    if (Math.abs(dx) > 1.2 * Math.abs(dy)
+      && Math.abs(dx) > 0.3 * elem.getBoundingClientRect().width
+      && dt < 800) {
+      showNextCard(elem);
+      onDragEndCard();
+      return;
+    }
+    // Otherwise, let the drag move the content.
+  }
+  function onDragEndCard() {
+    console.log("> drag end " + (dragElem !== null ? dragElem.id : "?"));
+    dragElem = null;
+    dragStartMillis = 0;
+    dragStartX = dragStartY = 0;
   }
 
   // Initialize Cloud Firestore and get the data list.
@@ -106,9 +167,10 @@ permalink: /
             case "water": imgName = "waterdrop"; break;
           }
           let s = $("#cardtemplate").html()
+            .replaceAll("__ID__", "card_" + (++lastId))
             .replace("__TITLE__", card.data()["Title"])
             .replace("__TEXT__", card.data()["Text"])
-            .replace("__IMG__", imgName);
+            .replace("placeholder.png", imgName + ".png");
           console.log(card.data()["Type"] + "\n" + s);
           $("#cardlist").append(s);
         });
@@ -116,6 +178,8 @@ permalink: /
       (error) => {
         console.log("ERROR" + error);
       });
+
+    activeCard = document.getElementById("card_0");
   });
 
 </script>

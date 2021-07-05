@@ -18,30 +18,23 @@ html,
   text-align: center;
   width: 100%;
 }
-
+.cardcontainer {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  display: none;
+}
+.cardshow {
+  display: block;
+}
 .title {
   font-size: 3rem;
 }
-
-.btntable {
-  border-collapse: collapse;
-  border-spacing: 10px;
-}
-.btnspacer {
-  background-color: #ffeeff;
-  width: 1%;
-}
-.btncell {
-  min-height: 100px;
-  min-width: 22%;
-  height: 100px;
-  background-color: #00cc00;
-  padding: 10px;
-  width: 200px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 15pt;
+.noborder {
+  border: none;
 }
 .header {
+  z-index: 9;
   position: fixed;
   top: 0px;
   overflow: hide;
@@ -56,26 +49,23 @@ html,
   background-color: #77dd77;
 }
 .maincanvas {
+  z-index: 1;
   position: fixed;
   margin: 0;
+  padding: 20px 0 0 0;
   top: 45px;
   text-align: center;
   width: 100%;
-  height: calc(100% - 45px - 120px);
+  height: calc(100% - 45px);
   background-color: #f1f1f1;
-  overflow: hidden;
-}
-.footer {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  height: 90px; 
-  margin: 0;
-  background-color: #e0ffe0;
   overflow: hidden;
 }
 .cardimg {
   width: 100px;
+  text-align: center;
+}
+.cardnav {
+  width: 25px;
   text-align: center;
 }
 .label {
@@ -110,12 +100,4 @@ html,
   filter: drop-shadow(8px 8px 3px #cfd0d1);
   margin-left: -3px;
   margin-top: -5px;
-}
-.ui-grid-c {
-  background-color: #e0ffe0;
-  width: 70%;
-  margin: auto;
-}
-button {
-  background-color: white;
 }
