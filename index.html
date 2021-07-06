@@ -69,9 +69,7 @@ permalink: /
 </div>
 
 <div id="cardtemplate" style="display: none;">
-  <div class="cardcontainer" id="__ID__" onmouseover="onMouseOverCard(this);"
-    onmouseout="onMouseOutCard(this);" onmousedown="onDragStartCard(event, this);"
-    onmouseup="onDragEndCard(this);" onmousemove="onDragCard(event, this);">
+  <div class="cardcontainer" id="__ID__">
     <table class="card">
       <tr>
         <td class="cardimg"><img src="/images/placeholder.png" height="50px" /></td>
@@ -142,6 +140,7 @@ permalink: /
     dragStartMillis = Date.now();
     dragStartX = event.clientX;
     dragStartY = event.clientY;
+    elem.classList.add("cardhighlight");
     console.log("< drag start" + dragElem.id + ", (" + dragStartX + ", " + dragStartY + ")");
   }
   function onDragCard(event, elem) {
@@ -162,7 +161,8 @@ permalink: /
     }
     // Otherwise, let the drag move the content.
   }
-  function onDragEndCard() {
+  function onDragEndCard(elem) {
+    if (dragElem === elem) elem.classList.remove("cardhighlight");
     console.log("> drag end " + (dragElem !== null ? dragElem.id : "?"));
     dragElem = null;
     dragStartMillis = 0;
@@ -197,6 +197,9 @@ permalink: /
           c.addEventListener("touchstart", (event) => { onDragStartCard(event, c) }, false);
           c.addEventListener("touchmove", (event) => { onDragCard(event, c) }, false);
           c.addEventListener("touchend", (event) => { onDragEndCard(c) }, false);
+          c.addEventListener("mousedown", (event) => { onDragStartCard(event, c) }, false);
+          c.addEventListener("mousemove", (event) => { onDragCard(event, c) }, false);
+          c.addEventListener("mouseup", (event) => { onDragEndCard(c) }, false);
         });
       },
       (error) => {
