@@ -9,7 +9,7 @@ permalink: /
   <div id="cardlist" class="container">
     <div class="cardcontainer cardshow" id="card_0" onmouseover="onMouseOverCard(this);"
       onmousedown="onDragStartCard(event, this);" ontouchstart="onDragStartCard(event, this);"
-      onmouseup="onDragEndCard(this);" ontouchcancel="onDragEndCard(event, this);"
+      onmouseup="onDragEndCard(this);" ontouchend="onDragEndCard(this);"
       onmousemove="onDragCard(event, this);" ontouchmove="onDragCard(event, this);"
       onmouseout="onMouseOutCard(this);">
       <table class="card">
@@ -51,14 +51,17 @@ permalink: /
           <td class="label">You are done!</td>
         </tr>
         <tr>
-          <td class="hint" colspan="5">Congratulations! You've learned many resource conservation
+          <td class="hint" colspan="2">Congratulations! You've learned many resource conservation
             tips. Now it's time to put them in action!
             <p>Follow these tips in your daily routines. And don't forget to share them with your
               friends and family!</p>
+            <p>&nbsp;</p>
           </td>
         </tr>
         <tr>
-          <td></td>
+          <td class="label" colspan="2">
+            <img src="/images/bighome.png" width="200px" onclick="reload();" />
+          </td>
         </tr>
       </table>
     </div>
