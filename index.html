@@ -7,7 +7,7 @@ permalink: /
 </div>
 <div id="maincanvas" class="maincanvas">
   <div id="cardlist" class="container">
-    <div class="cardcontainer cardshow" id="card_0" onmouseover="onMouseOverCard(this);" onmousedown="onDragStartCard(event, this);" ontouchstart="onDragStartCard(event, this);" onmouseup="onDragEndCard(this);" ontouchend="onDragEndCard(this);" onmousemove="onDragCard(event, this);" ontouchmove="onDragCard(event, this);" onmouseout="onMouseOutCard(this);">
+    <div class="cardcontainer cardshow" id="card_0">
       <table class="card">
         <tr>
           <td class="label" colspan="2">Welcome to the Greener app, conserve resources. Go Green!
@@ -16,7 +16,8 @@ permalink: /
         <tr>
           <td></td>
           <td class="cardnav">
-            <a class="ui-btn ui-btn-icon-left ui-icon-check noborder" onclick="showNextCard(document.getElementById('card_0'));"></a>
+            <a class="ui-btn ui-btn-icon-left ui-icon-check noborder"
+              onclick="dismissCard(document.getElementById('card_0'));"></a>
           </td>
         </tr>
 
@@ -79,7 +80,8 @@ permalink: /
           <a href="#" class="ui-btn ui-btn-icon-left ui-icon-forward noborder"></a>
         </td>
         <td class="cardnav">
-          <a class="ui-btn ui-btn-icon-left ui-icon-check noborder" onclick="showNextCard(document.getElementById('__ID__'));"></a>
+          <a class="ui-btn ui-btn-icon-left ui-icon-check noborder"
+            onclick="dismissCard(document.getElementById('__ID__'));"></a>
         </td>
       </tr>
       <tr>
@@ -100,19 +102,32 @@ permalink: /
 
   function reload() {
     location.reload();
-    // if (activeCard !== null) activeCard.classList.remove("cardshow");
-    // document.getElementById("card_0").classList.add("cardshow");
   }
-  function showNextCard(elem) {
-    console.log(elem.id);
+  function initializeCard(cardId) {
+    let c = document.getElementById(cardId);
+    c.addEventListener("touchstart", (event) => { onDragStartCard(event, c) }, false);
+    c.addEventListener("touchmove", (event) => { onDragCard(event, c) }, false);
+    c.addEventListener("touchend", (event) => { onDragEndCard(c) }, false);
+    c.addEventListener("mousedown", (event) => { onDragStartCard(event, c) }, false);
+    c.addEventListener("mousemove", (event) => { onDragCard(event, c) }, false);
+    c.addEventListener("mouseup", (event) => { onDragEndCard(c) }, false);
+    c.addEventListener("animationend", () => { onAnimationEnd(c) }, false);
+  }
+  function dismissCard(elem) {
+    console.log("showNext " + elem.id);
     if (elem === null || !elem.id.startsWith("card_")) return;
+    elem.classList.add("cardanimate");
+  }
+  function onAnimationEnd(elem) {
+    console.log("onAnimationEnd(): next id " + elem.id);
+    elem.classList.remove("cardshow");
+    elem.classList.remove("cardanimate");
     let id = Number(elem.id.substr(5));
     if (id < lastId) {
       ++id;
     } else {
       id = endId;
     }
-    elem.classList.remove("cardshow");
     activeCard = document.getElementById("card_" + id);
     activeCard.classList.add("cardshow");
   }
@@ -126,7 +141,7 @@ permalink: /
     e.classList.remove("cardhighlight");
   }
   function onClickCard(e) {
-    showNextCard(e);
+    dismissCard(e);
   }
   function onDragStartCard(event, elem) {
     if (dragElem !== null) onDragEndCard();
@@ -140,7 +155,7 @@ permalink: /
       dragStartX = event.clientX;
       dragStartY = event.clientY;
     }
-    console.log("< drag start" + dragElem.id + ", (" + dragStartX + ", " + dragStartY + ")");
+    // console.log("< drag start" + dragElem.id + ", (" + dragStartX + ", " + dragStartY + ")");
   }
   function onDragCard(event, elem) {
     if (dragElem === null) return;
@@ -155,14 +170,15 @@ permalink: /
     let dx = x - dragStartX;
     let dy = y - dragStartY;
     let dt = Date.now() - dragStartMillis;
-    console.log("  dragging " + elem.id + ", (" + dx + ", " + dy + ") / ("
-      + elem.getBoundingClientRect().width + ", " + elem.getBoundingClientRect().height + ")");
+    // console.log("  dragging " + elem.id + ", (" + dx + ", " + dy + ") / ("
+    //   + elem.getBoundingClientRect().width + ", " + elem.getBoundingClientRect().height + ")");
+
     // If it's a horizontal move, check if it's a swipe-to-dismiss gesture (defined as dragging
     // by more than 30% of width within 0.8s).
     if (Math.abs(dx) > 1.2 * Math.abs(dy)
       && Math.abs(dx) > 0.3 * elem.getBoundingClientRect().width
       && dt < 800) {
-      showNextCard(elem);
+      dismissCard(elem);
       onDragEndCard();
       return;
     }
@@ -207,19 +223,14 @@ permalink: /
             .replace("placeholder.png", imgName + ".png");
           console.log(card.data()["Type"] + "\n" + s);
           $("#cardlist").append(s);
-          let c = document.getElementById(cardId);
-          c.addEventListener("touchstart", (event) => { onDragStartCard(event, c) }, false);
-          c.addEventListener("touchmove", (event) => { onDragCard(event, c) }, false);
-          c.addEventListener("touchend", (event) => { onDragEndCard(c) }, false);
-          c.addEventListener("mousedown", (event) => { onDragStartCard(event, c) }, false);
-          c.addEventListener("mousemove", (event) => { onDragCard(event, c) }, false);
-          c.addEventListener("mouseup", (event) => { onDragEndCard(c) }, false);
+          initializeCard(cardId);
         });
       },
       (error) => {
         console.log("ERROR" + error);
       });
 
+    initializeCard("card_0");
     activeCard = document.getElementById("card_0");
   });
 

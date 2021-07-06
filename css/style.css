@@ -104,3 +104,16 @@ html,
   margin-left: -3px;
   margin-top: -5px;
 }
+
+@keyframes flyout {
+  from {
+    transform:  translate(0%, 0%) scale(1) rotate(0deg);
+  }
+  to {
+    transform: translate(100%, -100%) scale(0.1) rotate(360deg) ;
+  }
+}
+.cardanimate {
+  animation-duration: 1.3s;
+  animation-name: flyout;
+}
