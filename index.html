@@ -29,7 +29,7 @@ permalink: /
           <td class="label" colspan="2">Total points earned:</td>
         </tr>
         <tr>
-          <td id="total_pts" class="pts" colspan="2">0</td>
+          <td id="total_pts" class="pts" colspan="2">2</td>
         </tr>
         <tr>
           <td class="hint" colspan="2">Earn points by exploring the resource conservation tips,
@@ -107,8 +107,9 @@ permalink: /
   let dragStartY = 0;      // Coordinate when the dragging starts.
 
   function reload() {
-    if (activeCard !== null) activeCard.classList.remove("cardshow");
-    document.getElementById("card_0").classList.add("cardshow");
+    location.reload();
+    // if (activeCard !== null) activeCard.classList.remove("cardshow");
+    // document.getElementById("card_0").classList.add("cardshow");
   }
   function showNextCard(elem) {
     console.log(elem.id);
@@ -184,13 +185,18 @@ permalink: /
             case "power": imgName = "power"; break;
             case "water": imgName = "waterdrop"; break;
           }
+          let cardId = "card_" + (++lastId);
           let s = $("#cardtemplate").html()
-            .replaceAll("__ID__", "card_" + (++lastId))
+            .replaceAll("__ID__", cardId)
             .replace("__TITLE__", card.data()["Title"])
             .replace("__TEXT__", card.data()["Text"])
             .replace("placeholder.png", imgName + ".png");
           console.log(card.data()["Type"] + "\n" + s);
           $("#cardlist").append(s);
+          let c = document.getElementById(cardId);
+          c.addEventListener("touchstart", (event) => { onDragStartCard(event, c) }, false);
+          c.addEventListener("touchmove", (event) => { onDragCard(event, c) }, false);
+          c.addEventListener("touchend", (event) => { onDragEndCard(c) }, false);
         });
       },
       (error) => {
