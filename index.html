@@ -7,11 +7,7 @@ permalink: /
 </div>
 <div id="maincanvas" class="maincanvas">
   <div id="cardlist" class="container">
-    <div class="cardcontainer cardshow" id="card_0" onmouseover="onMouseOverCard(this);"
-      onmousedown="onDragStartCard(event, this);" ontouchstart="onDragStartCard(event, this);"
-      onmouseup="onDragEndCard(this);" ontouchend="onDragEndCard(this);"
-      onmousemove="onDragCard(event, this);" ontouchmove="onDragCard(event, this);"
-      onmouseout="onMouseOutCard(this);">
+    <div class="cardcontainer cardshow" id="card_0" onmouseover="onMouseOverCard(this);" onmousedown="onDragStartCard(event, this);" ontouchstart="onDragStartCard(event, this);" onmouseup="onDragEndCard(this);" ontouchend="onDragEndCard(this);" onmousemove="onDragCard(event, this);" ontouchmove="onDragCard(event, this);" onmouseout="onMouseOutCard(this);">
       <table class="card">
         <tr>
           <td class="label" colspan="2">Welcome to the Greener app, conserve resources. Go Green!
@@ -20,8 +16,7 @@ permalink: /
         <tr>
           <td></td>
           <td class="cardnav">
-            <a class="ui-btn ui-btn-icon-left ui-icon-check noborder"
-              onclick="showNextCard(document.getElementById('card_0'));"></a>
+            <a class="ui-btn ui-btn-icon-left ui-icon-check noborder" onclick="showNextCard(document.getElementById('card_0'));"></a>
           </td>
         </tr>
 
@@ -29,7 +24,7 @@ permalink: /
           <td class="label" colspan="2">Total points earned:</td>
         </tr>
         <tr>
-          <td id="total_pts" class="pts" colspan="2">3</td>
+          <td id="total_pts" class="pts" colspan="2">1</td>
         </tr>
         <tr>
           <td class="hint" colspan="2">Earn points by exploring the resource conservation tips,
@@ -69,7 +64,7 @@ permalink: /
 </div>
 
 <div id="cardtemplate" style="display: none;">
-  <div class="cardcontainer" id="__ID__">
+  <div class="cardcontainer" id="__ID__" onmouseover="onMouseOverCard(this);" onmouseout="onMouseOutCard(this);" onmousedown="onDragStartCard(event, this);" onmouseup="onDragEndCard(this);" onmousemove="onDragCard(event, this);">
     <table class="card">
       <tr>
         <td class="cardimg"><img src="/images/placeholder.png" height="50px" /></td>
@@ -84,8 +79,7 @@ permalink: /
           <a href="#" class="ui-btn ui-btn-icon-left ui-icon-forward noborder"></a>
         </td>
         <td class="cardnav">
-          <a class="ui-btn ui-btn-icon-left ui-icon-check noborder"
-            onclick="showNextCard(document.getElementById('__ID__'));"></a>
+          <a class="ui-btn ui-btn-icon-left ui-icon-check noborder" onclick="showNextCard(document.getElementById('__ID__'));"></a>
         </td>
       </tr>
       <tr>
@@ -138,15 +132,27 @@ permalink: /
     if (dragElem !== null) onDragEndCard();
     dragElem = elem;
     dragStartMillis = Date.now();
-    dragStartX = event.clientX;
-    dragStartY = event.clientY;
-    elem.classList.add("cardhighlight");
+    if (event.targetTouches) {
+      dragStartX = event.targetTouches[0].clientX;
+      dragStartY = event.targetTouches[0].clientY;
+    } else {
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+    }
     console.log("< drag start" + dragElem.id + ", (" + dragStartX + ", " + dragStartY + ")");
   }
   function onDragCard(event, elem) {
     if (dragElem === null) return;
-    let dx = event.clientX - dragStartX;
-    let dy = event.clientY - dragStartY;
+    let x = 0, y = 0;
+    if (event.targetTouches) {
+      x = event.targetTouches[0].clientX;
+      y = event.targetTouches[0].clientY;
+    } else {
+      x = event.clientX;
+      y = event.clientY;
+    }
+    let dx = x - dragStartX;
+    let dy = y - dragStartY;
     let dt = Date.now() - dragStartMillis;
     console.log("  dragging " + elem.id + ", (" + dx + ", " + dy + ") / ("
       + elem.getBoundingClientRect().width + ", " + elem.getBoundingClientRect().height + ")");
