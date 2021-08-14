@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /
+permalink: /main
 ---
 <div class="header">
   Go Green!
@@ -200,8 +200,6 @@ permalink: /
   }
 
   // Initialize Cloud Firestore and get the data list.
-  if (typeof firebase === 'undefined') throw new Error('Firebase SDK not detected.');
-  firebase.initializeApp({ "projectId": "greener-318516" });
   let db = firebase.firestore();
   let dataP = db.collection("greener").get();
 

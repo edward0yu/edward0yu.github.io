@@ -33,8 +33,21 @@
     href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
   <script
     src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+  <script lang="javascript">
+    if (typeof firebase === 'undefined') throw new Error('Firebase SDK not detected.');
+    firebase.initializeApp({
+      projectId: "greener-318516",
+      apiKey: "AIzaSyDYk7v4Jx2pip5X38eoI257J9-laAhZiec",
+      authDomain: "greener-318516.firebaseapp.com",
+      storageBucket: "greener-318516.appspot.com",
+      messagingSenderId: "379029472637",
+      appId: "1:379029472637:web:2f038fc127da1389a6b814",
+      measurementId: "G-HDKZK72T17"
+    });
+  </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
