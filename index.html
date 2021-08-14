@@ -91,6 +91,17 @@ permalink: /main
   </div>
 </div>
 
+<div class="footer">
+  <div class="ui-grid-b">
+    <div class="ui-block-a">
+      <button class="ui-btn ui-btn-icon-left ui-icon-home" onclick="nav('home');">Home</button>
+    </div>
+    <div class="ui-block-b">
+      <button class="ui-btn ui-btn-icon-left ui-icon-user" onclick="signout();">Sign out</button>
+    </div>
+  </div><!-- /navbar -->
+</div>
+
 <script lang="javascript">
   let activeCard = null; // The card currently showing
   const endId = 9999;    // A card id larger than normal cards, representing the end.
@@ -100,6 +111,12 @@ permalink: /main
   let dragStartX = 0;      // Coordinate when the dragging starts.
   let dragStartY = 0;      // Coordinate when the dragging starts.
 
+  function signout() {
+    console.log(Cookies.get()[cookieName]);
+    removeCookieName();
+    console.log(Cookies.get()[cookieName]);
+    window.location.href = "/";
+  }
   function reload() {
     location.reload();
   }

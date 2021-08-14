@@ -1,0 +1,50 @@
+---
+layout: default
+permalink: /reg
+---
+
+<div class="header">
+  Go Green!
+</div>
+<div id="maincanvas" class="maincanvas">
+  <div id="cardlist" class="container">
+    <div class="cardcontainer cardshow" id="card_0">
+
+      <table class="card">
+        <tr>
+          <td class="label" colspan="2">Welcome to the Greener app, conserve resources. Go Green!
+          </td>
+        </tr>
+        <tr>
+          <td>Please enter your ZIP code to join your local community</td>
+        </tr>
+        <tr>
+          <td>
+            <input id="zipcode" type="text" pattern="\d{5}" maxlength="5">
+          </td>
+        </tr>
+        <tr>
+          <td>Please enter the name you want to be seen by other community members</td>
+        </tr>
+        <tr>
+          <td>
+            <input id="nickname" type="text">
+          </td>
+        </tr>
+        <tr>
+          <td><button onclick="completeRegistration();">Let's Start!</button></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<script lang="javascript">
+  function completeRegistration() {
+    nickname = document.getElementById("nickname").value;
+    Cookies.set("nickname", nickname);
+    console.log("Registration completed " + Cookies.get()["nickname"]);
+    window.location.href = "/main";
+  }
+</script>
