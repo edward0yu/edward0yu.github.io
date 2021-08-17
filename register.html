@@ -2,49 +2,46 @@
 layout: default
 permalink: /reg
 ---
-
 <div class="header">
-  Go Green!
+  TutorNow!
 </div>
 <div id="maincanvas" class="maincanvas">
   <div id="cardlist" class="container">
-    <div class="cardcontainer cardshow" id="card_0">
+    <div class="cardcontainer cardshow" id="card_tutor">
+      <div class="label">
+        <td class="label" colspan="2">Welcome to <span class="appname">TutorNow!</span> &nbsp;
+          Please select one option below:
+        </td>
+      </div>
 
-      <table class="card">
-        <tr>
-          <td class="label" colspan="2">Welcome to the Greener app, conserve resources. Go Green!
-          </td>
-        </tr>
-        <tr>
-          <td>Please enter your ZIP code to join your local community</td>
-        </tr>
-        <tr>
-          <td>
-            <input id="zipcode" type="text" pattern="\d{5}" maxlength="5">
-          </td>
-        </tr>
-        <tr>
-          <td>Please enter the name you want to be seen by other community members</td>
-        </tr>
-        <tr>
-          <td>
-            <input id="nickname" type="text">
-          </td>
-        </tr>
-        <tr>
-          <td><button onclick="completeRegistration();">Let's Start!</button></td>
-        </tr>
-      </table>
+      <div class="card" onclick="selectStudent"><b>I want to be student.</b> <br><br>
+        Select this option to connect to an available tutor to get help with your study.</div>
 
+      <div class="card" onclick="selectTutor"><b>I want to be a tutor.</b> <br><br>
+        If you select this option, you can set your status to "Available" at your convenience and
+        students will be able to ask for your help.
+      </div>
     </div>
   </div>
 </div>
 
 <script lang="javascript">
-  function completeRegistration() {
-    nickname = document.getElementById("nickname").value;
-    Cookies.set("nickname", nickname);
-    console.log("Registration completed " + Cookies.get()["nickname"]);
-    window.location.href = "/main";
+  function isEmpty(s) {
+    return s === null || s === undefined || s === "";
+  }
+  function afterAuth() {
+    let nameFromAuth = firebase.auth().currentUser.displayName;
+    let nameFromCookie = Cookies.get()["nickname"];
+    if (isEmpty(nameFromCookie) && !isEmpty(nameFromAuth)) {
+      Cookies.set("nickname", nameFromAuth);
+    }
+  }
+  function selectStudent() {
+    Cookies.set("role", "s");
+    window.location.href = "/smain";
+  }
+  function selectTutor() {
+    Cookies.set("role", "t");
+    window.location.href = "/tpref";
   }
 </script>

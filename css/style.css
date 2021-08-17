@@ -44,6 +44,7 @@ html,
   text-align: center;
   padding: 10px 0 15px 0;
   font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+  font-style: italic;
   font-size: 15pt;
   font-weight: bold;
   background-color: #77dd77;
@@ -127,4 +128,8 @@ html,
 .cardanimate {
   animation-duration: 1.3s;
   animation-name: flyout;
+}
+.appname {
+  font-family: 'Comic Sans MS';
+  font-style: italic;
 }

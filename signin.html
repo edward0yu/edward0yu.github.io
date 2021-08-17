@@ -6,10 +6,11 @@ permalink: /
 <link type="text/css" rel="stylesheet"
   href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
 <script lang="javascript">
-  if (nickname !== undefined && nickname !== "") {
-    window.location.href = "/main";
+  function afterAuth() {
+    if (firebase.auth().currentUser) {
+      window.location.href = "/reg";
+    }
   }
-
 
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
@@ -36,5 +37,18 @@ permalink: /
     ],
   });
 </script>
-<h1>Sign in options:</h1>
-<div id="firebaseui-auth-container"></div>
+
+<div class="header">
+  TutorNow!
+</div>
+<div id="maincanvas" class="maincanvas">
+  <div id="cardlist" class="container">
+    <div class="cardcontainer cardshow" id="card_0">
+      <div class="label">Welcome to
+        <span class="appname">TutorNow!</span>
+        &nbsp; Please sign in to get started:
+      </div>
+      <div id="firebaseui-auth-container"></div>
+    </div>
+  </div>
+</div>

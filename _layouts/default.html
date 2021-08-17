@@ -54,6 +54,19 @@
     function removeCookieName() {
       Cookies.remove(cookieName);
     }
+    firebase.auth().onAuthStateChanged((u) => {
+      if (u) {
+        console.log("Signed in");
+        afterAuth();
+      } else {
+        {% if '/' != page.url %}
+        window.location.href = "/"; // If not signed in, redirect to sign in page.
+        {% else %}
+        console.log("Yes root");
+        {% endif %}
+      }
+    });
+    console.log("-=" + user);
   </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
