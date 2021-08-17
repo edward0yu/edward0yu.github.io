@@ -49,6 +49,10 @@
       measurementId: "G-HDKZK72T17"
     });
 
+    const studentMainUrl = "/smain";
+    const tutorPrefUrl = "/tpref";
+    const cookieRole = "role";
+
     const cookieName = "nickname";
     let nickname = Cookies.get()[cookieName];
     function removeCookieName() {
@@ -62,11 +66,14 @@
       } else {
         {% if '/' != page.url %}
         window.location.href = "/"; // If not signed in, redirect to sign in page.
-        {% else %}
-        console.log("Yes root");
         {% endif %}
       }
     });
+
+    function signout() {
+      Cookies.remove(cookieRole);
+      firebase.auth().signOut();
+    }
   </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
