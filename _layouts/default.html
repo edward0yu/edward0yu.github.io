@@ -88,18 +88,20 @@
 
     {{ content }}
     <div class="footer">
-      <div class="ui-grid-c">
+      <div class="ui-grid-d">
         <div class="ui-block-a">
-          <button class="ui-btn ui-btn-icon-top ui-icon-home" onclick="nav('home');"></button>
+          <button class="ui-btn ui-btn-icon-top ui-icon-home" onclick="nav('home');">Home</button>
         </div>
         <div class="ui-block-b">
-          <button class="ui-btn ui-btn-icon-center ui-icon-gear" onclick="nav('home');"></button>
-        </div>
-        <div class="ui-block-b">
-          <button class="ui-btn ui-btn-icon-left ui-icon-info" onclick="nav('home');"></button>
+          <button class="ui-btn ui-btn-icon-top ui-icon-gear"
+            onclick="nav('home');">Preferences</button>
         </div>
         <div class="ui-block-c">
-          <button class="ui-btn ui-btn-icon-left ui-icon-user" onclick="signout();"></button>
+          <button class="ui-btn ui-btn-icon-top ui-icon-info"
+            onclick="nav('home');">History</button>
+        </div>
+        <div class="ui-block-d">
+          <button class="ui-btn ui-btn-icon-top ui-icon-user" onclick="signout();">Sign out</button>
         </div>
       </div><!-- /navbar -->
     </div>
