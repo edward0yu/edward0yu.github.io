@@ -57,6 +57,7 @@
     firebase.auth().onAuthStateChanged((u) => {
       if (u) {
         console.log("Signed in");
+        document.getElementById("headername").innerHTML = firebase.auth().currentUser.displayName;
         afterAuth();
       } else {
         {% if '/' != page.url %}
@@ -66,14 +67,38 @@
         {% endif %}
       }
     });
-    console.log("-=" + user);
   </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="fullscreen">
   <main id="content" role="main" class="container">
+    <div class="headerrow">
+      <div></div>
+      <div class="header">TutorNow!</div>
+      <div class="headername" id="headername"></div>
+    </div>
+
     {{ content }}
+    <div class="footer">
+      <div class="ui-grid-c">
+        <div class="ui-block-a">
+          <button class="ui-btn ui-btn-icon-left ui-icon-home" onclick="nav('home');">Home</button>
+        </div>
+        <div class="ui-block-b">
+          <button class="ui-btn ui-btn-icon-left ui-icon-gear" onclick="nav('home');">Pref</button>
+        </div>
+        <div class="ui-block-b">
+          <button class="ui-btn ui-btn-icon-left ui-icon-info"
+            onclick="nav('home');">History</button>
+        </div>
+        <div class="ui-block-c">
+          <button class="ui-btn ui-btn-icon-left ui-icon-user" onclick="signout();">Sign
+            out</button>
+        </div>
+      </div><!-- /navbar -->
+    </div>
+
   </main>
   <script src="js/main.js"></script>
 </body>

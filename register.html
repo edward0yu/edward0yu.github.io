@@ -2,9 +2,6 @@
 layout: default
 permalink: /reg
 ---
-<div class="header">
-  TutorNow!
-</div>
 <div id="maincanvas" class="maincanvas">
   <div id="cardlist" class="container">
     <div class="cardcontainer cardshow" id="card_tutor">
@@ -14,10 +11,10 @@ permalink: /reg
         </td>
       </div>
 
-      <div class="card" onclick="selectStudent"><b>I want to be student.</b> <br><br>
+      <div class="card" onclick="selectStudent();"><b>I want to be student.</b> <br><br>
         Select this option to connect to an available tutor to get help with your study.</div>
 
-      <div class="card" onclick="selectTutor"><b>I want to be a tutor.</b> <br><br>
+      <div class="card" onclick="selectTutor();"><b>I want to be a tutor.</b> <br><br>
         If you select this option, you can set your status to "Available" at your convenience and
         students will be able to ask for your help.
       </div>
@@ -26,22 +23,31 @@ permalink: /reg
 </div>
 
 <script lang="javascript">
+  const studentMainUrl = "/smain";
+  const tutorPrefUrl = "/tpref";
   function isEmpty(s) {
     return s === null || s === undefined || s === "";
   }
   function afterAuth() {
-    let nameFromAuth = firebase.auth().currentUser.displayName;
-    let nameFromCookie = Cookies.get()["nickname"];
-    if (isEmpty(nameFromCookie) && !isEmpty(nameFromAuth)) {
-      Cookies.set("nickname", nameFromAuth);
+    let role = Cookies.get()["role"];
+    if (role == "s") {
+      window.location.href = studentMainUrl;
+    } else if (role == "t") {
+      window.location.href = tutorPrefUrl;
+    } else {
+      let nameFromAuth = firebase.auth().currentUser.displayName;
+      let nameFromCookie = Cookies.get()["nickname"];
+      if (isEmpty(nameFromCookie) && !isEmpty(nameFromAuth)) {
+        Cookies.set("nickname", nameFromAuth);
+      }
     }
   }
   function selectStudent() {
     Cookies.set("role", "s");
-    window.location.href = "/smain";
+    window.location.href = studentMainUrl;
   }
   function selectTutor() {
     Cookies.set("role", "t");
-    window.location.href = "/tpref";
+    window.location.href = tutorPrefUrl;
   }
 </script>

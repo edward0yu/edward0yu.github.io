@@ -1,4 +1,4 @@
-const cacheName = 'greener-v007';
+const cacheName = 'greener-v008';
 const filesToCache = [];
 
 /* Start the service worker and cache all of the app's content */

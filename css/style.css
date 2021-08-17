@@ -33,21 +33,33 @@ html,
 .noborder {
   border: none;
 }
-.header {
+.headerrow {
   z-index: 9;
   position: fixed;
   top: 0px;
   overflow: hide;
   width: 100%;
-  height: 20px; 
+  height: 45px; 
   margin: 0;
+  background-color: #77dd77;
+  display: flex; 
+  justify-content: space-around;
+}
+.header {
   text-align: center;
   padding: 10px 0 15px 0;
   font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
   font-style: italic;
   font-size: 15pt;
   font-weight: bold;
-  background-color: #77dd77;
+}
+.headername {
+  text-align: right;
+  vertical-align: bottom;
+  padding: 15px 5px 0px 0;
+  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+  font-style: italic;
+  font-size: 10pt;
 }
 .footer {
   z-index: 8;
@@ -55,8 +67,8 @@ html,
   bottom: 0px;
   overflow: hide;
   width: 100%;
-  height: 30px; 
-  padding: 10px 0 15px 0;
+  height: 55px; 
+  padding: 3px 10px 15px 10px;
   margin: 0;
   background-color: #77dd77;
 }
