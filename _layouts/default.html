@@ -86,22 +86,29 @@
       <div class="headername" id="headername"></div>
     </div>
 
-    {{ content }}
+    <div id="maincanvas" class="maincanvas">
+      <div id="cardlist" class="container">
+        {{ content }}
+      </div>
+    </div>
+
     <div class="footer">
       <div class="ui-grid-d">
         <div class="ui-block-a">
-          <button class="ui-btn ui-btn-icon-top ui-icon-home" onclick="nav('home');">Home</button>
+          <button class="ui-btn ui-btn-icon-top ui-icon-home footericon"
+            onclick="nav('home');">Home</button>
         </div>
         <div class="ui-block-b">
-          <button class="ui-btn ui-btn-icon-top ui-icon-gear"
-            onclick="nav('home');">Preferences</button>
+          <button class="ui-btn ui-btn-icon-top ui-icon-gear footericon"
+            onclick="nav('home');">Pref</button>
         </div>
         <div class="ui-block-c">
-          <button class="ui-btn ui-btn-icon-top ui-icon-info"
+          <button class="ui-btn ui-btn-icon-top ui-icon-info footericon"
             onclick="nav('home');">History</button>
         </div>
         <div class="ui-block-d">
-          <button class="ui-btn ui-btn-icon-top ui-icon-user" onclick="signout();">Sign out</button>
+          <button class="ui-btn ui-btn-icon-top ui-icon-user footericon" onclick="signout();">Sign
+            out</button>
         </div>
       </div><!-- /navbar -->
     </div>

@@ -2,25 +2,21 @@
 layout: default
 permalink: /reg
 ---
-<div id="maincanvas" class="maincanvas">
-  <div id="cardlist" class="container">
-    <div class="cardcontainer cardshow" id="card_tutor">
-      <div class="label">
-        <td class="label" colspan="2">Welcome to <span class="appname">TutorNow!</span> &nbsp;
-          Please select one option below:
-        </td>
-      </div>
+<div class="cardcontainer cardshow" id="card_tutor">
+  <div class="label">
+    Welcome to <span class="appname">TutorNow!</span> &nbsp;
+    Please select one option below:
+  </div>
 
-      <div class="card" onclick="selectStudent();"><b>I want to be student.</b> <br><br>
-        Select this option to connect to an available tutor to get help with your study.</div>
+  <div class="card" onclick="selectStudent();"><b>I want to be student.</b> <br><br>
+    Select this option to connect to an available tutor to get help with your study.</div>
 
-      <div class="card" onclick="selectTutor();"><b>I want to be a tutor.</b> <br><br>
-        If you select this option, you can set your status to "Available" at your convenience and
-        students will be able to ask for your help.
-      </div>
-    </div>
+  <div class="card" onclick="selectTutor();"><b>I want to be a tutor.</b> <br><br>
+    If you select this option, you can set your status to "Available" at your convenience and
+    students will be able to ask for your help.
   </div>
 </div>
+
 
 <script lang="javascript">
   function isEmpty(s) {
@@ -29,9 +25,9 @@ permalink: /reg
   function afterAuth() {
     let role = Cookies.get()["role"];
     if (role == "s") {
-      window.location.href = studentMainUrl;
+      //    window.location.href = studentMainUrl;
     } else if (role == "t") {
-      window.location.href = tutorPrefUrl;
+      //    window.location.href = tutorPrefUrl;
     } else {
       let nameFromAuth = firebase.auth().currentUser.displayName;
       let nameFromCookie = Cookies.get()["nickname"];

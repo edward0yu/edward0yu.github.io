@@ -2,3 +2,47 @@
 layout: default
 permalink: /smain
 ---
+<div class="cardcontainer cardshow">
+  <div class="card">
+    <div class="label">
+      Please either select a topic and start tutor matching:
+    </div>
+    <div>&nbsp;</div>
+    <select id="selectSubject">
+      <option value="0">Select one: </option>
+    </select>
+    <div>&nbsp;</div>
+    <div><button onclick="onStartMatch();">Start Tutor Matching</button></div>
+    <div>&nbsp;</div>
+  </div>
+</div>
+
+<script src="js/subjects.js"></script>
+<script lang="javascript">
+  function afterAuth() { }
+
+  function onStartMatch() {
+    let val = document.getElementById("selectSubject").value;
+    if (val === "0") {
+      alert("Please select a topic first");
+    } else {
+      console.log(val);
+    }
+  }
+
+  // Initialize the drop down selections.
+  let sel = document.getElementById("selectSubject");
+  for (let i = 0; i < subjects.length; i++) {
+    for (let j = 0; j < subjects[i].length; j++) {
+      let sub = document.createElement("option");
+      if (j == 0) {
+        sub.innerHTML = subjects[i][0];
+        sub.value = "0";
+      } else {
+        sub.innerHTML = " &nbsp; - " + subjects[i][j];
+        sub.value = subjects[i][j];
+      }
+      sel.appendChild(sub);
+    }
+  }
+</script>
