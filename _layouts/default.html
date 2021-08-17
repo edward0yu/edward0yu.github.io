@@ -74,6 +74,16 @@
       Cookies.remove(cookieRole);
       firebase.auth().signOut();
     }
+    function navHome() {
+      let url = "/reg";
+      let role = Cookies.get()[cookieRole];
+      if (role === "s") {
+        url = "/smain";
+      } else {
+        url = "/tmain";
+      }
+      window.location.href = url;
+    }
   </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -88,7 +98,9 @@
 
     <div id="maincanvas" class="maincanvas">
       <div id="cardlist" class="container">
-        {{ content }}
+        <div class="cardcontainer cardshow">
+          {{ content }}
+        </div>
       </div>
     </div>
 
@@ -96,21 +108,21 @@
       <div class="ui-grid-d">
         <div class="ui-block-a">
           <button class="ui-btn ui-btn-icon-top ui-icon-home footericon"
-            onclick="nav('home');">Home</button>
+            onclick="navHome();">Home</button>
         </div>
         <div class="ui-block-b">
           <button class="ui-btn ui-btn-icon-top ui-icon-gear footericon"
-            onclick="nav('home');">Pref</button>
+            onclick="window.location.href='/reg';">Pref</button>
         </div>
         <div class="ui-block-c">
           <button class="ui-btn ui-btn-icon-top ui-icon-info footericon"
-            onclick="nav('home');">History</button>
+            onclick=";">History</button>
         </div>
         <div class="ui-block-d">
           <button class="ui-btn ui-btn-icon-top ui-icon-user footericon" onclick="signout();">Sign
             out</button>
         </div>
-      </div><!-- /navbar -->
+      </div>
     </div>
 
   </main>

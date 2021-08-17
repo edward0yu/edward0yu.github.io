@@ -95,8 +95,8 @@ html,
 }
 .label {
   font-family: "Comic Sans MS", "Comic Sans", Verdana, sans-serif;
-  font-size: 15pt;
-  padding: 5px 0 5px 0;
+  font-size: 14pt;
+  padding: 5px 5px 5px 5px;
   width: calc(100% - 100px);
   text-align: center;
   user-select: none;
@@ -148,4 +148,13 @@ html,
 .footericon {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 8pt;
+}
+td {
+  text-align: left;
+  padding: 0px 10px 0px 20px;
+  font-size: 15px;
+}
+td.cat {
+  padding: 0px 10px 0px 10px;
+  font-weight: bold;
 }

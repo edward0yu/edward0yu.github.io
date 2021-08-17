@@ -2,9 +2,58 @@
 layout: default
 permalink: /tpref
 ---
-Hi Tutor
+<div class="card">
+  <div class="label">
+    Please select all topics you can tutor, then click on "Next"
+  </div>
+  <div>
+    <button onclick="onSelectAll();">Select All</button>
+    &nbsp;&nbsp;
+    <button onclick="onClearAll();">Clear All</button>
+  </div>
+  <table id="topics"></table>
+  <div>&nbsp;</div>
+  <div><button onclick="onNext();">Next</button></div>
+  <div>&nbsp;</div>
+</div>
+
+<script src="js/subjects.js"></script>
 <script lang="javascript">
-  // function afterAuth() {
-  //   document.getElementById("headername").innerHTML = firebase.auth().currentUser.displayName;
-  // }
+  function afterAuth() { }
+
+  function onNext() {
+
+  }
+  function onClearAll() {
+    for (let i = 0; i < subjects.length; i++) {
+      for (let j = 1; j < subjects[i].length; j++) {
+        document.getElementById(subjects[i][j].replaceAll(" ", "_")).checked = false;
+      }
+    }
+  }
+  function onSelectAll() {
+    for (let i = 0; i < subjects.length; i++) {
+      for (let j = 1; j < subjects[i].length; j++) {
+        document.getElementById(subjects[i][j].replaceAll(" ", "_")).checked = true;
+      }
+    }
+  }
+
+  let topics = document.getElementById("topics");
+  for (let i = 0; i < subjects.length; i++) {
+    for (let j = 0; j < subjects[i].length; j++) {
+      let row = document.createElement("tr");
+      topics.appendChild(row);
+      let cell = document.createElement("td");
+      row.appendChild(cell);
+      if (j == 0) {
+        cell.innerHTML = subjects[i][0];
+        cell.setAttribute("class", "cat");
+      } else {
+        cell.innerHTML = "<input type='checkbox' id='" + subjects[i][j].replaceAll(" ", "_") +
+          "'>&nbsp; " + subjects[i][j] + "</input>";
+      }
+    }
+  }
+
 </script>
