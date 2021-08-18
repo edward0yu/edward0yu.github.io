@@ -3,36 +3,60 @@ layout: default
 permalink: /tmain
 ---
 <div class="label">
+  Thank you for being a tutor!
+  <br><br>
   Change your status to "Available" to allow students to request tutoring sessions:
 </div>
-<div id="avail" class="card cardbutton" onclick="onAvailable();">I'm available</div>
+<div id="avail" class="card cardbutton" onclick="onAvailable();">I'm available
+  <span id="availDetail" class="texthide">Waiting for requests from students ...</span>
+</div>
+<div id="insession" class="card cardbutton" onclick="onInSession();">
+  I'm in a tutoring session
+  <span id="insessionDetail" class="texthide">No students will be able to request tutoring
+    sessions from you until you change the status to available.</span>
+</div>
 <div id="unavail" class="card cardbuttonselect ui-btn-icon-left ui-icon-check"
   onclick="onUnavailable();">
-  Taking a break</div>
+  Taking a break
+  <span id="unavailDetail" class="textshow">No students will be able to request tutoring
+    sessions from you until you change the status to available.</span>
+</div>
 
 <script lang="javascript">
   function afterAuth() { }
 
+  const availTextUnselected = "I'm available";
+  const availTextSelected = "<b>I'm available</b><br><br>";
   function clearClasses(e) {
     while (e.classList.length > 0) {
       e.classList.remove(e.classList.item(0));
     }
   }
-  function highlight(sel, other) {
-    clearClasses(other);
-    other.classList.add("card", "cardbutton");
-    clearClasses(sel);
-    sel.classList.add("card", "cardbuttonselect", "ui-btn-icon-left", "ui-icon-check");
+  function highlight(sel) {
+    const btns = ["avail", "unavail", "insession"];
+
+    btns.forEach(btn => {
+      let card = document.getElementById(btn);
+      let detail = document.getElementById(btn + "Detail");
+      clearClasses(card);
+      clearClasses(detail);
+      if (btn === sel) {
+        card.classList.add("card", "cardbuttonselect", "ui-btn-icon-left", "ui-icon-check");
+        detail.classList.add("textshow");
+      } else {
+        card.classList.add("card", "cardbutton");
+        detail.classList.add("texthide");
+      }
+    });
   }
 
   function onAvailable() {
-    let avail = document.getElementById("avail");
-    let unavail = document.getElementById("unavail");
-    highlight(avail, unavail);
+    highlight("avail");
   }
   function onUnavailable() {
-    let avail = document.getElementById("avail");
-    let unavail = document.getElementById("unavail");
-    highlight(unavail, avail);
+    highlight("unavail");
+  }
+  function onInSession() {
+    highlight("insession");
   }
 </script>

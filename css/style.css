@@ -27,6 +27,14 @@ html,
 .cardshow {
   display: block;
 }
+.textshow {
+  display: block;
+  font-weight: normal;
+  margin: 20px 0 0 0;
+}
+.texthide {
+  display: none;
+}
 .title {
   font-size: 3rem;
 }
@@ -66,7 +74,7 @@ html,
   position: fixed;
   bottom: 0px;
   overflow: hide;
-  width: 100%;
+  width: calc(100% - 20px);
   height: 65px; 
   padding: 3px 10px 3px 10px;
   margin: 0;
@@ -129,13 +137,13 @@ html,
   margin-top: -5px;
 }
 .cardbutton {
-  padding: 10px;
-  width: calc(100% - 50px);
+  padding: 10px 10px 10px 30px;
+  width: calc(100% - 70px);
   background-color: #ffffff;
 }
 .cardbuttonselect {
-  padding: 10px;
-  width: calc(100% - 50px);
+  padding: 10px 10px 10px 30px;
+  width: calc(100% - 70px);
   filter: drop-shadow(5px 5px 2px #bfc0c1);
   margin-left: 18px;
   margin-top: 18px;
