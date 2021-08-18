@@ -19,26 +19,67 @@ permalink: /tpref
 
 <script src="js/subjects.js"></script>
 <script lang="javascript">
+  let topicCookies = null;
+
   function afterAuth() { }
 
-  function onNext() {
+  function getId(i, j) {
+    return subjects[i][j].replaceAll(" ", "_");
+  }
+  function initTopicCookies() {
+    if (topicCookies === null) {
+      topicCookies = new Set();
+      let c = Cookies.get();
+      for (let i = 0; i < subjects.length; i++) {
+        for (let j = 1; j < subjects[i].length; j++) {
+          if (!isEmpty(c[getId(i, j)])) {
+            topicCookies.add(getId(i, j));
+          }
+        }
+      }
+    }
+  }
 
+  function onNext() {
+    let count = 0;
+    for (let i = 0; i < subjects.length; i++) {
+      for (let j = 1; j < subjects[i].length; j++) {
+        if (document.getElementById(getId(i, j)).checked) {
+          count++;
+        }
+      }
+    }
+    if (count == 0) {
+      alert("Please select at least one topic to proceed.");
+    } else {
+      for (let i = 0; i < subjects.length; i++) {
+        for (let j = 1; j < subjects[i].length; j++) {
+          if (document.getElementById(getId(i, j)).checked) {
+            Cookies.set(getId(i, j), "1");
+          } else {
+            Cookies.remove(getId(i, j));
+          }
+        }
+      }
+      window.location.href = "/tmain";
+    }
   }
   function onClearAll() {
     for (let i = 0; i < subjects.length; i++) {
       for (let j = 1; j < subjects[i].length; j++) {
-        document.getElementById(subjects[i][j].replaceAll(" ", "_")).checked = false;
+        document.getElementById(getId(i, j)).checked = false;
       }
     }
   }
   function onSelectAll() {
     for (let i = 0; i < subjects.length; i++) {
       for (let j = 1; j < subjects[i].length; j++) {
-        document.getElementById(subjects[i][j].replaceAll(" ", "_")).checked = true;
+        document.getElementById(getId(i, j)).checked = true;
       }
     }
   }
 
+  initTopicCookies();
   let topics = document.getElementById("topics");
   for (let i = 0; i < subjects.length; i++) {
     for (let j = 0; j < subjects[i].length; j++) {
@@ -50,8 +91,9 @@ permalink: /tpref
         cell.innerHTML = subjects[i][0];
         cell.setAttribute("class", "cat");
       } else {
-        cell.innerHTML = "<input type='checkbox' id='" + subjects[i][j].replaceAll(" ", "_") +
-          "'>&nbsp; " + subjects[i][j] + "</input>";
+        let checked = topicCookies.has(getId(i, j)) ? " checked " : "";
+        cell.innerHTML = "<input type='checkbox' id='" + getId(i, j) +
+          "' " + checked + ">&nbsp; " + subjects[i][j] + "</input>";
       }
     }
   }
