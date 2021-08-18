@@ -2,6 +2,37 @@
 layout: default
 permalink: /tmain
 ---
-<div class="card">
-  Tutor main
+<div class="label">
+  Change your status to "Available" to allow students to request tutoring sessions:
 </div>
+<div id="avail" class="card cardbutton" onclick="onAvailable();">I'm available</div>
+<div id="unavail" class="card cardbuttonselect ui-btn-icon-left ui-icon-check"
+  onclick="onUnavailable();">
+  Taking a break</div>
+
+<script lang="javascript">
+  function afterAuth() { }
+
+  function clearClasses(e) {
+    while (e.classList.length > 0) {
+      e.classList.remove(e.classList.item(0));
+    }
+  }
+  function highlight(sel, other) {
+    clearClasses(other);
+    other.classList.add("card", "cardbutton");
+    clearClasses(sel);
+    sel.classList.add("card", "cardbuttonselect", "ui-btn-icon-left", "ui-icon-check");
+  }
+
+  function onAvailable() {
+    let avail = document.getElementById("avail");
+    let unavail = document.getElementById("unavail");
+    highlight(avail, unavail);
+  }
+  function onUnavailable() {
+    let avail = document.getElementById("avail");
+    let unavail = document.getElementById("unavail");
+    highlight(unavail, avail);
+  }
+</script>
