@@ -64,6 +64,7 @@
         document.getElementById("headername").innerHTML = firebase.auth().currentUser.displayName;
         afterAuth();
       } else {
+        document.getElementById("headername").innerHTML = "";
         {% if '/' != page.url %}
         window.location.href = "/"; // If not signed in, redirect to sign in page.
         {% endif %}
