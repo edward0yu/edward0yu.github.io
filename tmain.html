@@ -40,14 +40,20 @@ permalink: /tmain
       let detail = document.getElementById(btn + "Detail");
       clearClasses(card);
       clearClasses(detail);
-      if (btn === sel) {
-        card.classList.add("card", "cardbuttonselect", "ui-btn-icon-left", "ui-icon-check");
-        detail.classList.add("textshow");
-      } else {
+    });
+
+    btns.forEach(btn => {
+      let card = document.getElementById(btn);
+      let detail = document.getElementById(btn + "Detail");
+      if (btn !== sel) {
         card.classList.add("card", "cardbutton");
         detail.classList.add("texthide");
       }
     });
+    let card = document.getElementById(sel);
+    let detail = document.getElementById(sel + "Detail");
+    card.classList.add("card", "cardbuttonselect", "ui-btn-icon-left", "ui-icon-check");
+    detail.classList.add("textshow");
   }
 
   function onAvailable() {
