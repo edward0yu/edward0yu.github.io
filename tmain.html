@@ -4,8 +4,6 @@ permalink: /tmain
 ---
 <div class="label">
   Thank you for being a tutor!
-  <br><br>
-  Change your status to "Available" to allow students to request tutoring sessions:
 </div>
 <div id="avail" class="card cardbutton" onclick="onAvailable();">I'm available
   <span id="availDetail" class="texthide">Waiting for requests from students ...</span>
@@ -15,8 +13,7 @@ permalink: /tmain
   <span id="insessionDetail" class="texthide">No students will be able to request tutoring
     sessions from you until you change the status to available.</span>
 </div>
-<div id="unavail" class="card cardbuttonselect ui-btn-icon-left ui-icon-check"
-  onclick="onUnavailable();">
+<div id="unavail" class="card cardbuttonselect" onclick="onUnavailable();">
   Taking a break
   <span id="unavailDetail" class="textshow">No students will be able to request tutoring
     sessions from you until you change the status to available.</span>
@@ -48,12 +45,11 @@ permalink: /tmain
       if (btn !== sel) {
         card.classList.add("card", "cardbutton");
         detail.classList.add("texthide");
+      } else {
+        card.classList.add("card", "cardbuttonselect");
+        detail.classList.add("textshow");
       }
     });
-    let card = document.getElementById(sel);
-    let detail = document.getElementById(sel + "Detail");
-    card.classList.add("card", "cardbuttonselect", "ui-btn-icon-left", "ui-icon-check");
-    detail.classList.add("textshow");
   }
 
   function onAvailable() {

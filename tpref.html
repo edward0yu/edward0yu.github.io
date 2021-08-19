@@ -19,25 +19,18 @@ permalink: /tpref
 
 <script src="js/subjects.js"></script>
 <script lang="javascript">
-  let topicCookies = null;
-
   function afterAuth() { }
 
-  function getId(i, j) {
-    return subjects[i][j].replaceAll(" ", "_");
+  function replaceSpaces(s) {
+    let r = null;
+    do {
+      r = s;
+      s = s.replace(" ", "_");
+    } while (r !== s);
+    return s;
   }
-  function initTopicCookies() {
-    if (topicCookies === null) {
-      topicCookies = new Set();
-      let c = Cookies.get();
-      for (let i = 0; i < subjects.length; i++) {
-        for (let j = 1; j < subjects[i].length; j++) {
-          if (!isEmpty(c[getId(i, j)])) {
-            topicCookies.add(getId(i, j));
-          }
-        }
-      }
-    }
+  function getId(i, j) {
+    return replaceSpaces(subjects[i][j]);
   }
 
   function onNext() {
@@ -79,7 +72,16 @@ permalink: /tpref
     }
   }
 
-  initTopicCookies();
+  let topicCookies = new Set();
+  let c = Cookies.get();
+  for (let i = 0; i < subjects.length; i++) {
+    for (let j = 1; j < subjects[i].length; j++) {
+      if (!isEmpty(c[getId(i, j)])) {
+        topicCookies.add(getId(i, j));
+      }
+    }
+  }
+
   let topics = document.getElementById("topics");
   for (let i = 0; i < subjects.length; i++) {
     for (let j = 0; j < subjects[i].length; j++) {

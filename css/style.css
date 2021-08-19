@@ -30,7 +30,6 @@ html,
 .textshow {
   display: block;
   font-weight: normal;
-  margin: 20px 0 0 0;
 }
 .texthide {
   display: none;
