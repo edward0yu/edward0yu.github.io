@@ -15,7 +15,6 @@ permalink: /smain
   <div>&nbsp;</div>
 </div>
 
-<script src="js/subjects.js"></script>
 <script lang="javascript">
   function afterAuth() { }
 
@@ -54,7 +53,7 @@ permalink: /smain
         sub.value = "0";
       } else {
         sub.innerHTML = " &nbsp; - " + subjects[i][j];
-        sub.value = subjects[i][j];
+        sub.value = replaceSpaces(subjects[i][j]);
       }
       sel.appendChild(sub);
     }

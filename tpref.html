@@ -17,18 +17,9 @@ permalink: /tpref
   <div>&nbsp;</div>
 </div>
 
-<script src="js/subjects.js"></script>
 <script lang="javascript">
   function afterAuth() { }
 
-  function replaceSpaces(s) {
-    let r = null;
-    do {
-      r = s;
-      s = s.replace(" ", "_");
-    } while (r !== s);
-    return s;
-  }
   function getId(i, j) {
     return replaceSpaces(subjects[i][j]);
   }
@@ -68,16 +59,6 @@ permalink: /tpref
     for (let i = 0; i < subjects.length; i++) {
       for (let j = 1; j < subjects[i].length; j++) {
         document.getElementById(getId(i, j)).checked = true;
-      }
-    }
-  }
-
-  let topicCookies = new Set();
-  let c = Cookies.get();
-  for (let i = 0; i < subjects.length; i++) {
-    for (let j = 1; j < subjects[i].length; j++) {
-      if (!isEmpty(c[getId(i, j)])) {
-        topicCookies.add(getId(i, j));
       }
     }
   }

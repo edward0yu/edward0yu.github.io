@@ -37,6 +37,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+  <script src="js/subjects.js"></script>
   <script lang="javascript">
     if (typeof firebase === 'undefined') throw new Error('Firebase SDK not detected.');
     firebase.initializeApp({
@@ -53,11 +54,32 @@
     const tutorPrefUrl = "/tpref";
     const cookieRole = "role";
 
+    const c = Cookies.get();
     const cookieName = "nickname";
-    let nickname = Cookies.get()[cookieName];
+    let nickname = c[cookieName];
+    let topicCookies = new Set();
+    for (let i = 0; i < subjects.length; i++) {
+      for (let j = 1; j < subjects[i].length; j++) {
+        if (!isEmpty(c[getId(i, j)])) {
+          topicCookies.add(getId(i, j));
+        }
+      }
+    }
+    function getId(i, j) {
+      return replaceSpaces(subjects[i][j]);
+    }
     function removeCookieName() {
       Cookies.remove(cookieName);
     }
+    function replaceSpaces(s) {
+      let r = null;
+      do {
+        r = s;
+        s = s.replace(" ", "_");
+      } while (r !== s);
+      return s;
+    }
+
     firebase.auth().onAuthStateChanged((u) => {
       if (u) {
         console.log("Signed in: " + u.uid);

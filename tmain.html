@@ -7,20 +7,35 @@ permalink: /tmain
 </div>
 <div id="avail" class="card cardbutton" onclick="onAvailable();">I'm available
   <span id="availDetail" class="texthide">Waiting for requests from students ...</span>
+  <span id="readyMatch" class="texthide"><br><br>
+    <b>There are students needing your help! Tap here to see the tutoring requests.
+    </b>
+  </span>
 </div>
 <div id="insession" class="card cardbutton" onclick="onInSession();">
   I'm in a tutoring session
   <span id="insessionDetail" class="texthide">No students will be able to request tutoring
     sessions from you until you change the status to available.</span>
 </div>
-<div id="unavail" class="card cardbuttonselect" onclick="onUnavailable();">
+<div id="unavail" class="card cardbutton" onclick="onUnavailable();">
   Taking a break
-  <span id="unavailDetail" class="textshow">No students will be able to request tutoring
+  <span id="unavailDetail" class="texthide">No students will be able to request tutoring
     sessions from you until you change the status to available.</span>
 </div>
 
 <script lang="javascript">
-  function afterAuth() { }
+  const statusCookie = "status";
+  function afterAuth() {
+    let status = Cookies.get()[statusCookie];
+    if (isEmpty(status)) {
+      status = "unavail";
+    }
+    if (status == "avail") {
+      onAvailable();
+    } else {
+      highlight(status);
+    }
+  }
 
   const availTextUnselected = "I'm available";
   const availTextSelected = "<b>I'm available</b><br><br>";
@@ -52,13 +67,70 @@ permalink: /tmain
     });
   }
 
+  let db = firebase.firestore();
+  let unsubscribe = null;
+  let foundReadyMatch = false;
+
+  function cleanup() {
+    foundReadyMatch = false;
+    if (unsubscribe) {
+      unsubscribe();
+      unsubscribe = null;
+    }
+  }
+  function hideReadyMatch() {
+    let ele = document.getElementById("readyMatch");
+    clearClasses(ele);
+    ele.classList.add("texthide");
+  }
+  function startListen() {
+    unsubscribe = db.collection("asks").onSnapshot((s) => {
+      let count = 0;
+      let total = 0;
+      s.forEach((doc) => {
+        ++total;
+        if (topicCookies.has(doc.data().topic)) { ++count; }
+      });
+      if (count > 0) {
+        console.log("Snapshot with " + count + " matches over " + total + " total");
+        foundReadyMatch = true;
+        let ele = document.getElementById("readyMatch");
+        clearClasses(ele);
+        ele.classList.add("textshow");
+      } else {
+        console.log("Snapshot with no matches over " + total + " items");
+        foundReadyMatch = false;
+        hideReadyMatch();
+      }
+    }, (error) => {
+      console.log("Error start listening " + error + ". Will try again.");
+      setTimeout(() => {
+        startListen();
+      }, 2000);
+    });
+  }
+
   function onAvailable() {
-    highlight("avail");
+    if (foundReadyMatch) {
+      cleanup();
+      window.location.href = "/tmatch";
+    } else {
+      highlight("avail");
+      Cookies.set(statusCookie, "avail");
+      startListen();
+    }
   }
   function onUnavailable() {
+    cleanup();
+    hideReadyMatch();
     highlight("unavail");
+    Cookies.set(statusCookie, "unavail");
   }
   function onInSession() {
+    cleanup();
+    hideReadyMatch();
     highlight("insession");
+    Cookies.set(statusCookie, "insession");
   }
+
 </script>
