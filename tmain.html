@@ -24,9 +24,8 @@ permalink: /tmain
 </div>
 
 <script lang="javascript">
-  const statusCookie = "status";
   function afterAuth() {
-    let status = Cookies.get()[statusCookie];
+    let status = Cookies.get()[cookieStatus];
     if (isEmpty(status)) {
       status = "unavail";
     }
@@ -39,11 +38,6 @@ permalink: /tmain
 
   const availTextUnselected = "I'm available";
   const availTextSelected = "<b>I'm available</b><br><br>";
-  function clearClasses(e) {
-    while (e.classList.length > 0) {
-      e.classList.remove(e.classList.item(0));
-    }
-  }
   function highlight(sel) {
     const btns = ["avail", "unavail", "insession"];
 
@@ -116,7 +110,7 @@ permalink: /tmain
       window.location.href = "/tmatch";
     } else {
       highlight("avail");
-      Cookies.set(statusCookie, "avail");
+      Cookies.set(cookieStatus, "avail");
       startListen();
     }
   }
@@ -124,13 +118,13 @@ permalink: /tmain
     cleanup();
     hideReadyMatch();
     highlight("unavail");
-    Cookies.set(statusCookie, "unavail");
+    Cookies.set(cookieStatus, "unavail");
   }
   function onInSession() {
     cleanup();
     hideReadyMatch();
     highlight("insession");
-    Cookies.set(statusCookie, "insession");
+    Cookies.set(cookieStatus, "insession");
   }
 
 </script>

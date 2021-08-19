@@ -56,6 +56,8 @@
 
     const c = Cookies.get();
     const cookieName = "nickname";
+    const cookieStatus = "status";
+    const cookieInSessionSid = "inSessionSid";
     let nickname = c[cookieName];
     let topicCookies = new Set();
     for (let i = 0; i < subjects.length; i++) {
@@ -78,6 +80,11 @@
         s = s.replace(" ", "_");
       } while (r !== s);
       return s;
+    }
+    function clearClasses(e) {
+      while (e.classList.length > 0) {
+        e.classList.remove(e.classList.item(0));
+      }
     }
 
     firebase.auth().onAuthStateChanged((u) => {

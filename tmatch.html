@@ -3,15 +3,119 @@ layout: default
 permalink: /tmatch
 ---
 
-<div class="label">
-  Select any students below to start:
-</div>
+<div id="beforeMatch">
+  <div class="label">
+    Select any students below to start.
+    <br><br>
+    <span class="hint">
+      Tap the Home button at the bottom to change your availability.
+    </span>
+  </div>
 
-<div id="list">
+  <div id="list">
+  </div>
+
+  <div id="cardtemplate" style="display: none;">
+    <div class="card" onclick="match('__ID__');">
+      <span class="label">Student: </span>
+      __STUDENT__
+      <br><span class="label">Topic:</span>
+      __TOPIC__
+    </div>
+  </div>
+</div>
+<div id="afterMatch" class="texthide">
+  <div class="label">You will hold tutor session in Google Meet. After you are done,
+    come back, tap the Home button at the bottom to update your availability.
+  </div>
 </div>
 
 <script lang="javascript">
   function afterAuth() { }
 
+  let db = firebase.firestore();
+  let unsubscribe = null;
+
+  if (Cookies.get()[cookieStatus] == "insession") {
+    showAfterMatch();
+  } else {
+    startListen();
+  }
+
+  function cleanup() {
+    if (unsubscribe) {
+      unsubscribe();
+      unsubscribe = null;
+    }
+  }
+  function removeAllCards() {
+    document.getElementById("list").innerHTML = "";
+  }
+  function startListen() {
+    removeAllCards();
+    let listdiv = document.getElementById("list");
+    unsubscribe = db.collection("asks").onSnapshot((s) => {
+      let count = 0;
+      let total = 0;
+      s.forEach((doc) => {
+        ++total;
+        if (topicCookies.has(doc.data().topic)) {
+          ++count;
+          let s = document.getElementById("cardtemplate").innerHTML
+            .replace("__STUDENT__", doc.data().name)
+            .replace("__ID__", doc.data().uid)
+            .replace("__TOPIC__", doc.data().topic);
+          listdiv.innerHTML += s;
+        }
+      });
+      if (count > 0) {
+        console.log("Snapshot with " + count + " matches over " + total + " total");
+        console.log(listdiv.innerHTML);
+      } else {
+        console.log("Snapshot with no matches over " + total + " items");
+      }
+    }, (error) => {
+      console.log("Error start listening " + error + ". Will try again.");
+      setTimeout(() => {
+        startListen();
+      }, 2000);
+    });
+  }
+
+  function match(id) {
+    let docRef = db.collection("asks").doc(id);
+    let newRef = db.collection("matches").doc(id);
+    const me = firebase.auth().currentUser;
+    db.runTransaction((transaction) => {
+      return transaction.get(docRef).then((doc) => {
+        if (!doc.exists) {
+          throw "Document does not exist!";
+        }
+        transaction.delete(docRef);
+        transaction.set(newRef, {
+          sid: id,
+          tid: me.uid,
+          name: me.displayName,
+          time: Date.now()
+        });
+      });
+    }).then(() => {
+      console.log("Match record committed");
+      Cookies.set(cookieStatus, "insession");
+      showAfterMatch();
+      window.open("https://meet.google.com/sur-ffgv-hgb");
+    }).catch((error) => {
+      console.log("Match record failed tp commit: ", error);
+    });
+  }
+
+  function showAfterMatch() {
+    let before = document.getElementById("beforeMatch");
+    let after = document.getElementById("afterMatch");
+    clearClasses(before);
+    before.classList.add("texthide");
+    clearClasses(after);
+    after.classList.add("cardshow");
+  }
 
 </script>

@@ -102,16 +102,14 @@ html,
 }
 .label {
   font-family: "Comic Sans MS", "Comic Sans", Verdana, sans-serif;
-  font-size: 14pt;
+  font-size: 12pt;
   padding: 5px 5px 5px 5px;
-  width: calc(100% - 100px);
   text-align: center;
   user-select: none;
 }
 .hint {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 12pt;
-  border-top: 1px solid #dddddd;
+  font-size: 9pt;
   padding: 3px 10px 3px 10px;
   text-align: justify;
   user-select: none;
@@ -125,10 +123,12 @@ html,
   margin: 15px;
   text-align: center;
   width: calc(100% - 30px);
-  padding: 0;
+  padding: 2px;
   background-color: #ffffff;
   border: none;
   filter: drop-shadow(7px 7px 2px #cfd0d1);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12pt;
 }
 .cardhighlight {
   filter: drop-shadow(8px 8px 3px #cfd0d1);
