@@ -19,10 +19,7 @@ permalink: /tpref
 
 <script lang="javascript">
   function afterAuth() { }
-
-  function getId(i, j) {
-    return replaceSpaces(subjects[i][j]);
-  }
+  function cleanup() { }
 
   function onNext() {
     let count = 0;
@@ -45,6 +42,7 @@ permalink: /tpref
           }
         }
       }
+      cleanup();
       window.location.href = "/tmain";
     }
   }

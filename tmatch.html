@@ -86,11 +86,15 @@ permalink: /tmatch
     let docRef = db.collection("asks").doc(id);
     let newRef = db.collection("matches").doc(id);
     const me = firebase.auth().currentUser;
+    let sname = "";
+    let topic = "";
     db.runTransaction((transaction) => {
       return transaction.get(docRef).then((doc) => {
         if (!doc.exists) {
           throw "Document does not exist!";
         }
+        sname = doc.data().name;
+        topic = doc.data().topic;
         transaction.delete(docRef);
         transaction.set(newRef, {
           sid: id,
@@ -100,7 +104,7 @@ permalink: /tmatch
         });
       });
     }).then(() => {
-      console.log("Match record committed");
+      console.log("Match record committed: " + id + ", " + sname + ", " + topic);
       Cookies.set(cookieStatus, "insession");
       showAfterMatch();
       window.open("https://meet.google.com/sur-ffgv-hgb");
@@ -117,5 +121,4 @@ permalink: /tmatch
     clearClasses(after);
     after.classList.add("cardshow");
   }
-
 </script>

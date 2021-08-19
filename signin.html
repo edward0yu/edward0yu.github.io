@@ -6,9 +6,10 @@ permalink: /
 <link type="text/css" rel="stylesheet"
   href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
 <script lang="javascript">
+  function cleanup() { }
   function afterAuth() {
     if (firebase.auth().currentUser) {
-      //window.location.href = "/reg";
+      window.location.href = "/reg";
     }
   }
 

@@ -16,6 +16,7 @@ permalink: /reg
 
 
 <script lang="javascript">
+  function cleanup() { }
   function afterAuth() {
     let role = Cookies.get()["role"];
     if (role == "s") {

@@ -2,23 +2,43 @@
 layout: default
 permalink: /smain
 ---
-<div class="card">
-  <div class="label">
-    Please either select a topic that you need help with and start tutor matching:
+<div id="beforeMatch">
+  <div class="card">
+    <div class="label">
+      Please either select a topic that you need help with and start tutor matching:
+    </div>
+    <div>&nbsp;</div>
+    <select id="selectSubject">
+      <option value="0">Select one: </option>
+    </select>
+    <div>&nbsp;</div>
+    <div><button onclick="onStartMatch();">Start Tutor Matching</button></div>
+    <div>&nbsp;</div>
   </div>
-  <div>&nbsp;</div>
-  <select id="selectSubject">
-    <option value="0">Select one: </option>
-  </select>
-  <div>&nbsp;</div>
-  <div><button onclick="onStartMatch();">Start Tutor Matching</button></div>
-  <div>&nbsp;</div>
+</div>
+<div id="afterMatch" class="texthide">
+  Waiting for an available tutor to start the meeting.
+  <br><br>
+  If you want to cancel this tutoring request, just tap on the Home button at the bottom.
 </div>
 
 <script lang="javascript">
   function afterAuth() { }
 
   let db = firebase.firestore();
+  let unsubscribe = null;
+
+  let pendingMatch = false;
+  function cleanup() {
+    if (pendingMatch) {
+      const uid = firebase.auth().currentUser.uid;
+      db.collection("asks").doc(uid).delete();
+    }
+    if (unsubscribe) {
+      unsubscribe();
+      unsubscribe = null;
+    }
+  }
 
   function onStartMatch() {
     const uid = firebase.auth().currentUser.uid;
@@ -36,11 +56,37 @@ permalink: /smain
         time: Date.now(),
         topic: val
       }).then(() => {
-        alert("OK");
+        pendingMatch = true;
+        showAfterMatch();
+        waitForTutor();
       }).catch((error) => {
         alert("Error requesting service, please try again: " + error);
       });
     }
+  }
+  function showAfterMatch() {
+    let before = document.getElementById("beforeMatch");
+    let after = document.getElementById("afterMatch");
+    clearClasses(before);
+    before.classList.add("texthide");
+    clearClasses(after);
+    after.classList.add("cardshow");
+  }
+  function waitForTutor() {
+    const uid = firebase.auth().currentUser.uid;
+    unsubscribe = db.collection("matches").doc(uid).onSnapshot((doc) => {
+      if (doc.exists) {
+        console.log("Found match: " + doc.data().tid + ", "
+          + doc.data().name + ", " + doc.data().time);
+        db.collection("matches").doc(uid).delete();
+        window.open("https://meet.google.com/sur-ffgv-hgb");
+      }
+    }, (error) => {
+      console.log("Error start listening " + error + ". Will try again.");
+      setTimeout(() => {
+        waitForTutor();
+      }, 2000);
+    });
   }
 
   // Initialize the drop down selections.

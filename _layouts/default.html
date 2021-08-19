@@ -112,6 +112,11 @@
       } else {
         url = "/tmain";
       }
+      cleanup();
+      window.location.href = url;
+    }
+    function navTo(url) {
+      cleanup();
       window.location.href = url;
     }
     function isEmpty(s) {
@@ -145,11 +150,11 @@
         </div>
         <div class="ui-block-b">
           <button class="ui-btn ui-btn-icon-top ui-icon-gear footericon"
-            onclick="window.location.href='/reg';">Preference</button>
+            onclick="navTo('/reg');">Preference</button>
         </div>
         <div class="ui-block-c">
           <button class="ui-btn ui-btn-icon-top ui-icon-info footericon"
-            onclick="window.location.href='/history';">History</button>
+            onclick="navTo('/history');">History</button>
         </div>
         <div class="ui-block-d">
           <button class="ui-btn ui-btn-icon-top ui-icon-user footericon" onclick="signout();">Sign
