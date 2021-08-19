@@ -19,12 +19,30 @@ permalink: /smain
 <script lang="javascript">
   function afterAuth() { }
 
+  let db = firebase.firestore();
+
   function onStartMatch() {
+    const uid = firebase.auth().currentUser.uid;
+    const name = firebase.auth().currentUser.displayName;
     let val = document.getElementById("selectSubject").value;
     if (val === "0") {
-      alert("Please select a topic first");
+      alert("Please select a topic first.");
+    } else if (isEmpty(uid)) {
+      alert("Please press OK to sign in first.");
+      signout();
     } else {
-      console.log(val);
+      db.collection("asks").doc(uid).set({
+        uid: uid,
+        name: name,
+        time: Date.now(),
+        topic: val
+      }).then(() => {
+        alert("OK");
+      }).catch((error) => {
+        alert("Error requesting service, please try again: " + error);
+      });
+      console.log(name);
+      console.log(firebase.auth().currentUser);
     }
   }
 

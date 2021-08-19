@@ -60,7 +60,7 @@
     }
     firebase.auth().onAuthStateChanged((u) => {
       if (u) {
-        console.log("Signed in");
+        console.log("Signed in: " + u.uid);
         document.getElementById("headername").innerHTML = firebase.auth().currentUser.displayName;
         afterAuth();
       } else {
